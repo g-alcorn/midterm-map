@@ -10,4 +10,6 @@ module.exports = (db) => {
     //else if not already liked
     //post to database and ajax render
   });
+
+  return router;
 }
