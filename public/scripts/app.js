@@ -19,7 +19,6 @@ $(document).ready(function() {
     const layer1 = new L.TileLayer(osmUrl, {attribution: osmAttrib});
 
     map.addLayer(layer1);
-    console.log("initiated map \n" + layer1);
   };
 
 
