@@ -6,6 +6,22 @@ body {
   nav {
     background-color: #0E00FF;
     display: flex;
+    position: fixed;
+    width: 100%;
+    height: 7vh;
+
+    .new-map{
+      background-color: #0E00FF;
+      border: none;
+      color: #EEE;
+      height: 7vh;
+      width: 3.5vw;
+      font-size: 5vh;
+    }
+
+    .login-register{
+      justify-content: right;
+    }
   }
 
   h1 {
