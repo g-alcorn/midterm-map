@@ -10,18 +10,28 @@
     <!-- Material Design -->
     <link rel=”stylesheet” href=”https://unpkg.com/material-components-web/dist/material-components-web.min.css">
 
+    <!-- Leaflet CSS File -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+
+   <!-- Leaflet JS File -->
+   <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
     <nav>
-      <div>
-        <button class="new-map" type="button">+</button>
+      <div class="new-map">
+        <button type="button">+</button>
       </div>
-      <div>
-      <button class="login-register" type="button">login / register</button>
-    </div>
+      <div class="login-register">
+      <button type="button">login / register</button>
+      </div>
     </nav>
     <header class="new-map">
       <div>
@@ -31,9 +41,9 @@
       <div>
       </div>
     </header>
+    <main class="map">
+    </main>
     <footer>
-      <div>
-      </div>
     </footer>
   </body>
 </html>
