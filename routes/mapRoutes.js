@@ -1,30 +1,46 @@
 const express = require('express');
 const router  = express.Router();
 
+//ROUTES THAT WILL CREATE, EDIT, SAVE MAPS
 module.exports = (db) => {
-  router.post("/login", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
-        res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+  //NEW MAP - OPEN EDITOR WITH BLANK TEMPLATE
+  router.get('/:id/maps/create', (req, res) => {
+    //call function in separate helper file
+    //use same functions as edit map but starting from blank
   });
 
-  router.post('/logout', (req, res) => {
-    //delete cookies
-    //change top bar to logged out appearance
+  //EDIT MAP
+  router.get('/:id/maps/:map_id/edit', (req, res) => {
+    //call function in separate helper file to save edit to geoJSON
+    //this function must update current view by creating copy of current map geoJSON
+
+    //then the copy can have features added/removed/edited
   });
 
-  router.post('/register', (req, res) => {
-    //validate form data
-    //save to DB
-    //create cookies and convert to login view
+
+  //SAVE MAP
+  //new: "temporary" geoJSON generated during process will be saved and entered into database
+  //edit: temporary copy of geoJSON will be saved and replace old geoJSON in database entry
+  router.post('/:id/maps/:map_id/save', (req, res) => {
+
   });
+
+  //SHOW LIST OF MAPS BY USER
+  router.get('/:id/maps', (req, res) => {
+
+  });
+
+  //SHOW LIST OF ALL MAPS
+  router.get('/maps', (req, res) => {
+
+  });
+
+  //SHOW SPECIFIC MAP
+  router.get('/:id/maps/:map_id', (req, res) => {
+
+  });
+
+
 
   return router;
 };
