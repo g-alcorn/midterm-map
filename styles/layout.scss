@@ -32,7 +32,7 @@ body {
       height: 7vh;
       border: none;
       width: 15vw;
-      margin-right: 1vw;
+      margin-right: -2vw;
       color:  #F2FF03;
       font-family: 'Roboto', sans-serif;
       font-size: 2vw;
@@ -57,9 +57,9 @@ body {
     z-index: 1000;
     visibility: hidden;
     width: 17vw;
-    background-color: lightgray;
+    background-color: black;
     height: 30vh;
-    margin-right: 1vw;
+    margin-right: 2vw;
 
     textarea {
       resize: none;
@@ -72,15 +72,26 @@ body {
       margin-top: 2vh;
       margin-bottom: 2vh;
       height: 30px;
+      color: white;
+    }
+
+    .login{
+      width: 100%;
+      font-size: 1.5vw;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+      border: none;
+      background-color: transparent;
+      margin-bottom: 5px;
     }
 
     .register {
       font-size: 1.5vw;
-      color: black;
+      color: white;
       font-family: 'Roboto', sans-serif;
       border: none;
       background-color: transparent;
-      margin-left: 3vw;
+      width: 100%;
     }
   }
 
@@ -93,5 +104,22 @@ body {
     left: 96vw;
     margin-top: 80vh;
     }
+  }
+
+  #create-map{
+    visibility: hidden;
+  }
+
+  #create-map.toggled{
+    visibility: visible;
+    border: none;
+    z-index: 1000;
+    width: 30vw;
+    height: 30vh;
+    background-color: black;
+  }
+
+  #map-creator{
+    visibility: hidden;
   }
 }
