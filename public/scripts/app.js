@@ -1,4 +1,9 @@
+//USE THIS FILE TO GENERATE MAP
+
 $(() => {
+
+
+
   $.ajax({
     method: "GET",
     url: "/api/users"
