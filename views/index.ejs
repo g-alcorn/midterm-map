@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
+    <!-- server.js -->
+    <script type="text/javascript" src="../public/scripts/app.js"></script>
+
     <!-- Material Design -->
     <link rel=”stylesheet” href=”https://unpkg.com/material-components-web/dist/material-components-web.min.css">
 
@@ -37,18 +40,27 @@
       <div class="new-map">
         <button type="button">+</button>
       </div>
-      <div class="login-register">
-      <button type="button">login / register</button>
+      <div>
+      <button class="login-register" type="button">login / register</button>
+      <form action="/login" method="POST" id="login">
+        <textarea name="username" id="username" placeholder="username"></textarea>
+        <textarea name="password" id="password" placeholder="password"></textarea>
+        <button type="button" method="POST" class="login">login</button>
+        <button type="button" method="POST" class="register">create account</button>
+        </form>
       </div>
     </nav>
-    <header class="new-map">
+
+    <header id="create-map">
       <div>
       </div>
     </header>
-    <header class="map-creator">
+
+    <header id="map-creator">
       <div>
       </div>
     </header>
+
     <main class="map">
       <div id="mapid"></div>
     </main>

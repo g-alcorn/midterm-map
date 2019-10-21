@@ -21,6 +21,14 @@ $(document).ready(function() {
     map.addLayer(layer1);
   };
 
+  $('.login-register').click(function() {
+    $('#login').toggleClass('toggled')
+  });
+
+  $('.new-map').click(function() {
+    $('#create-map').toggleClass('toggled')
+  });
+
 
   initMap();
 });
