@@ -41,6 +41,7 @@ const mapsRoutes = require("./routes/mapRoutes");
 
 app.use(usersRoutes(db));
 app.use(mapsRoutes(db));
+app.use(likeRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 
