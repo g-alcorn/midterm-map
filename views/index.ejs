@@ -32,18 +32,26 @@
       <div class="new-map">
         <button type="button">+</button>
       </div>
-      <div class="login-register">
-      <button type="button">login / register</button>
+      <div>
+      <button class="login-register" type="button">login / register</button>
+      <form action="/login" method="POST" class="login">
+        <textarea name="username" id="username" placeholder="username"></textarea>
+        <textarea name="password" id="password" placeholder="password"></textarea>
+        <button type="button" method="POST" class="register">register</button>
+        </form>
       </div>
     </nav>
-    <header class="new-map">
+
+    <header class="create-map">
       <div>
       </div>
     </header>
+
     <header class="map-creator">
       <div>
       </div>
     </header>
+
     <main class="map">
     </main>
     <footer>
