@@ -4,6 +4,8 @@ body {
   background-color: #EEE;
 
   nav {
+    margin-top: -6vh;
+    z-index: 1000;
     background-color: #0E00FF;
     position: fixed;
     display: flex;
@@ -12,11 +14,12 @@ body {
     height: 50px;
 
     .new-map button{
+      margin-top: -3px;
       background-color: transparent;
       border: none;
       color:  #EEE;
       height: 40px;
-      width: 50px;
+      width: 60px;
       font-size: 40px;
     }
 
@@ -45,7 +48,14 @@ body {
     background-color: #F2FF03;
     size: 30vw;
   }
-  form {
+
+  #login.toggled {
+    visibility: visible;
+  }
+
+  #login {
+    z-index: 1000;
+    visibility: hidden;
     width: 17vw;
     background-color: lightgray;
     height: 30vh;
@@ -73,12 +83,15 @@ body {
       margin-left: 3vw;
     }
   }
-  form.toggled {
-
-  }
 
   #mapid {
-    height: 400px;
-    width: 400px;
+    margin-top: 6vh;
+    height: 94vh;
+    width: 100vw;
+
+    .leaflet-control-zoom {
+    left: 96vw;
+    margin-top: 80vh;
+    }
   }
 }

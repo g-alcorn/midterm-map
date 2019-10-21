@@ -22,6 +22,10 @@ $(document).ready(function() {
     console.log("initiated map \n" + layer1);
   };
 
+  $('.login-register').click(function() {
+    $('#login').toggleClass('toggled')
+  });
+
 
   initMap();
 });
