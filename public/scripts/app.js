@@ -1,6 +1,6 @@
 //USE THIS FILE TO GENERATE MAP
 
-$(() => {
+$(document.ready(function() {
 
 
 
@@ -12,4 +12,4 @@ $(() => {
       $("<div>").text(user.name).appendTo($("body"));
     }
   });;
-});
+}));
