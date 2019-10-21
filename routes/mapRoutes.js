@@ -1,6 +1,13 @@
 const express = require('express');
 const router  = express.Router();
 
+/*************
+ * IMPORTANT NOTE ON HOW TO USE URL AS VARIABLE
+ * :variable in URL becomes accessible from
+ * req.params.variable
+**************/
+
+
 //ROUTES THAT WILL CREATE, EDIT, SAVE MAPS
 module.exports = (db) => {
   //NEW MAP - OPEN EDITOR WITH BLANK TEMPLATE
