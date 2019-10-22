@@ -12,10 +12,20 @@ $(document).ready(function() {
 
   $('#new-map').click(function() {
     $('#create-map').toggleClass('open')
-    $('main').toggleClass('open')
     $('#new-map').toggleClass('open')
-    $('#mapid').toggleClass('open')
   });
+
+  $('.mdc-fab').click(function() {
+    $('#view-maps').addClass('toggled')
+    $('#mapid').addClass('open')
+    $('main').addClass('open')
+  })
+
+  $('#back').click(function() {
+    $('#view-maps').removeClass('toggled')
+    $('#mapid').removeClass('open')
+    $('main').removeClass('open')
+  })
 
   //MAP CLICK
   map.on('click', function(event) {
