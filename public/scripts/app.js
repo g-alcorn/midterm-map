@@ -6,10 +6,12 @@ $(document).ready(function() {
   initMap(map);
 
   //EVENT LISTENERS
+  //TOGGLE LOGIN BOX
   $('.login-register').click(function() {
     $('#login').toggleClass('toggled')
   });
 
+  //TOGGLE MAP CREATOR SIDEBAR
   $('#new-map').click(function() {
     $('#create-map').toggleClass('open')
     $('main').toggleClass('open')
@@ -17,24 +19,28 @@ $(document).ready(function() {
     $('#mapid').toggleClass('open')
   });
 
+  //CHANGE JQUERY SELECTOR TO MATCH NEW/EDIT MAP BUTTONS
+  $('form-submit').click(function(event) {
+    event.preventDefault();
+    const datavar = 0;
+    $.ajax('/save', { data: datavar, method: 'POST' })
+    .done(function(INFOFROMSERVER) {
+
+    })
+    .fail(function(error) {
+      console.log(error);
+    });
+  });
+
   //MAP CLICK
   map.on('click', function(event) {
     console.log('trying to load a bubble');
     onMapClick(event, map);
-    //editMap(map, event);
-    //get map id from url
-    //REPLACE VARS!
-    // $.ajax('/ID_FROM_COOKIE/maps/MAP_ID/edit', { method: 'GET' })
-    //   .done(function(INFO FROM SERVER) {
-    //    editMap(map, event, data);
-    //   })
-    //   .fail(function(REASON WHY IT FAILED) {
-
-    // });
   });
 
 });
 
+//SET MAP ATTRIBUTES AND TILES
 const initMap = (map) => {
   // create the tile layer with correct attribution
   const osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -44,6 +50,7 @@ const initMap = (map) => {
   map.addLayer(background);
 };
 
+//OPEN POPUP WITH LATLNG
 const onMapClick = (e, map) => {
   var popup = L.popup();
   popup
