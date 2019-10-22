@@ -50,11 +50,9 @@ const editMap = (map, event) => {
   console.log('clicked at ' + point);
 
   //create bubble with name, description, photo url fields
-  drawEditor(point);
-
-};
-
-const drawEditor = (point) => {
-  console.log('drawing editor placeholder');
+  popup
+    .setLatLng(point)
+    .setContent('you clicked here: ' + point)
+    .openOn(map);
 };
 
