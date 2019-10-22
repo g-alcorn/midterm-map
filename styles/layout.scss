@@ -66,16 +66,19 @@ body {
   }
 
   #login.toggled {
-    visibility: visible;
+    height: 30vh;
+    box-shadow: -9px 14px 15px 0px rgba(0,0,0,0.75);
+    transition: 0.5s;
   }
 
   #login {
     z-index: 1000;
-    visibility: hidden;
     width: 17vw;
     background-color: black;
-    height: 30vh;
+    height: 0;
     margin-right: 2vw;
+    overflow-x: hidden;
+    transition: 0.5s;
 
     textarea {
       width: 83%;
@@ -177,6 +180,7 @@ body {
 
   #create-map.open{
     height: 100%;
+    box-shadow: 9px 14px 15px 0px rgba(0,0,0,0.75);
   }
 
   #map-creator{
