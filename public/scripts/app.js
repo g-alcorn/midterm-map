@@ -19,7 +19,8 @@ $(document).ready(function() {
   //MAP CLICK
   map.on('click', function(event) {
     console.log('trying to load a bubble');
-
+    onMapClick(event, map);
+    //editMap(map, event);
     //get map id from url
     //REPLACE VARS!
     // $.ajax('/ID_FROM_COOKIE/maps/MAP_ID/edit', { method: 'GET' })
@@ -42,16 +43,10 @@ const initMap = (map) => {
   map.addLayer(background);
 };
 
-const editMap = (map, event) => {
-  //IF THIS IS RUNNING, THE MAP HAS ALREADY BEEN CLICKED
-  //get lat and long of point
-  const point = event.latlng;
-  console.log('clicked at ' + point);
-
-  //create bubble with name, description, photo url fields
+const onMapClick = (e, map) => {
+  var popup = L.popup();
   popup
-    .setLatLng(point)
-    .setContent('you clicked here: ' + point)
-    .openOn(map);
+    .setLatLng(e.latlng)
+    .setContent("You clicked the map at " + e.latlng.toString());
+  map.openPopup(popup);
 };
-
