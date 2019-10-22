@@ -18,10 +18,13 @@ module.exports = (db) => {
 
   //EDIT MAP
   router.get('/:id/maps/:map_id/edit', (req, res) => {
-    //call function in separate helper file to save edit to geoJSON
-    //this function must update current view by creating copy of current map geoJSON
+    const { id, map_id } = req.params;
 
-    //then the copy can have features added/removed/edited
+    //make PG query for the geojson file associated with map_id
+    //search geojson file for similar points
+    //use trim statement on lat and long to reduce decimal places and get "similar" coords
+    //if found, use edit helper function
+    //else if not found, use create helper function
   });
 
 

@@ -9,16 +9,17 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  //LOGIN BUTTON PRESS - SHOW FORM
-  router.get('login', (req, res) => {
-    //RENDER FORM WITH AJAX
-  });
-
   //LOGIN BUTTON PRESS - AUTHENTICATE
-  router.post("/login", (req, res) => {
+  router.post('/login', (req, res) => {
+    //CALL AUTHENTICATION FUNCTION FROM HELPER FILE
+
+    //IF AUTHENTICATED
+    //set req.session to include the user id!!!!!!!!!
+    //DATABASE QUERY FOR MAP ID
     db.query(`SELECT * FROM users;`)
       .then(data => {
-        //CALL AUTHENTICATION FUNCTION FROM HELPER FILE
+        //response should include list of map_IDs for user who logged in
+        //response should include SEPARATE list of map_IDs for all users
         const users = data.rows;
         res.json({ users });
       })
@@ -32,25 +33,53 @@ module.exports = (db) => {
 
   //LOGOUT BUTTON PRESS
   router.post('/logout', (req, res) => {
-    //delete cookies
+    //delete cookies from req.session
     //change top bar to logged out appearance
   });
 
-  //REGISTER BUTTON PRESS - SHOW FORM
-  router.get('/register'), (req, res) => {
-    //RENDER FORM WITH AJAX
-  }
-
   //REGISTER BUTTON PRESS - AUTHENTICATE
   router.post('/register', (req, res) => {
-    //validate form data with helper function
-    //save to DB
-    //create cookies and convert to logged-in view
+    //validate form data
+    //check if fields are empty, have min number of characters, etc
+    //if fail, render error?
+    //else validate on database
+    db.query(`SELECT id FROM users;`)
+      .then(data => {
+        //potentially need to parse data
+
+        //run for loop to check if user already exists
+        //if yes, respond with error
+        //else INSERT to db
+        //set user id inside req.session to indicate logged-in
+      })
+      .catch(err => {
+        res
+        .status(500)
+        .json({ error: err.message });
+      });
+
+
   });
 
   //GET USER PROFILE
   router.get('/:id', (req, res) => {
     //RENDER LIST OF ALL MAPS MADE BY A USER
-  })
+    //database query for maps owned by req.params.id
+    const { id } = req.params;
+
+    db.query(`SELECT map_id FROM maps WHERE user_id = ${id}`)
+      .then(data => {
+        //possibly parse data
+        //create array of map IDs to be sent in response
+        //send array in response!
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+
   return router;
 };
