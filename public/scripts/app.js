@@ -26,10 +26,11 @@ $(document).ready(function() {
     $('#login').toggleClass('toggled')
   });
 
-  $('.new-map').click(function() {
-    $('#create-map').toggleClass('toggled')
+  $('#new-map').click(function() {
+    $('#create-map').toggleClass('open')
+    $('main').toggleClass('open')
+    $('#new-map').toggleClass('open')
   });
-
 
   initMap();
 });
