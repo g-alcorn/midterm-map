@@ -31,7 +31,7 @@ module.exports = (db) => {
   //SAVE MAP
   //new: "temporary" geoJSON generated during process will be saved and entered into database
   //edit: temporary copy of geoJSON will be saved and replace old geoJSON in database entry
-  router.post('/:id/maps/:map_id/save', (req, res) => {
+  router.post('/save', (req, res) => {
 
   });
 

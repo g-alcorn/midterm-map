@@ -7,21 +7,25 @@
 
 const express = require('express');
 const router  = express.Router();
+const authenticate = require('./helpers/authenticate.js');
 
 module.exports = (db) => {
   //LOGIN BUTTON PRESS - AUTHENTICATE
   router.post('/login', (req, res) => {
     //CALL AUTHENTICATION FUNCTION FROM HELPER FILE
+    const serializedUser = $( 'NAME OF TEXT INPUT' ).serialize();
+    const serializedPass = $( 'NAME OF PASSWORD INPUT' ).serialize();
+    const loggedIn = authenticate.authorize(serializedUser, serializedPass, db);
 
     //IF AUTHENTICATED
     //set req.session to include the user id!!!!!!!!!
-    //DATABASE QUERY FOR MAP ID
-    db.query(`SELECT * FROM users;`)
+    //DATABASE QUERY FOR MAP IDs OWNED BY USER
+    db.query(`SELECT maps.id, maps.name FROM maps JOIN users ON maps.user_id = users.id WHERE maps.user_id = ${serializedUser};`)
       .then(data => {
         //response should include list of map_IDs for user who logged in
         //response should include SEPARATE list of map_IDs for all users
-        const users = data.rows;
-        res.json({ users });
+        const mapsList = data.rows;
+        res.json({ mapsList });
       })
       .catch(err => {
         //CREATE ERROR CODE
