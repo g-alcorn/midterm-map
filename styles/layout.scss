@@ -12,7 +12,7 @@ body {
     width: 100%;
     height: 50px;
 
-    #new-map button{
+    #new-map{
       background-color: transparent;
       border: none;
       color:  #EEE;
@@ -28,9 +28,12 @@ body {
 
     #new-map.open:hover{
       transform: rotate(45deg);
+      cursor: pointer;
     }
 
     #new-map:hover {
+      z-index: 1;
+      cursor: pointer;
       transition: 0.30s;
       transform: rotate(90deg);
     }
@@ -47,7 +50,8 @@ body {
     }
 
     .login-register:hover {
-      color: #EEE
+      color: #EEE;
+      cursor: pointer;
     }
   }
 
@@ -69,6 +73,7 @@ body {
     margin-right: 2vw;
 
     textarea {
+      width: 83%;
       resize: none;
       border-bottom: solid;
       border-top: none;
@@ -92,6 +97,10 @@ body {
       margin-bottom: 5px;
     }
 
+    .login:hover {
+      cursor: pointer;
+    }
+
     .register {
       font-size: 1.5vw;
       color: white;
@@ -99,6 +108,11 @@ body {
       border: none;
       background-color: transparent;
       width: 100%;
+      margin-top: 2vh;
+    }
+
+    .register:hover {
+      cursor:pointer;
     }
   }
 
@@ -111,6 +125,15 @@ body {
     .leaflet-control-zoom {
     left: 96vw;
     margin-top: 80vh;
+    transition: 0.5s;
+    }
+  }
+
+  #mapid.open {
+    .leaflet-control-zoom {
+      left: 78vw;
+      margin-top: 80vh;
+      transition: 0.5s;
     }
   }
 
@@ -127,7 +150,7 @@ body {
   }
 
   #create-map.open{
-    width: 250px;
+    width: 25vw;
   }
 
   #map-creator{
@@ -140,6 +163,6 @@ body {
   }
 
   main.open{
-    margin-left: 250px;
+    margin-left: 25vw;
   }
 }

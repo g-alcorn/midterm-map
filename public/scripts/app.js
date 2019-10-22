@@ -14,6 +14,7 @@ $(document).ready(function() {
     $('#create-map').toggleClass('open')
     $('main').toggleClass('open')
     $('#new-map').toggleClass('open')
+    $('#mapid').toggleClass('open')
   });
 
   //MAP CLICK
