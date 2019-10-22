@@ -4,7 +4,6 @@ body {
   background-color: #EEE;
 
   nav {
-    margin-top: -6vh;
     z-index: 1000;
     background-color: #0E00FF;
     position: fixed;
@@ -13,8 +12,7 @@ body {
     width: 100%;
     height: 50px;
 
-    .new-map button{
-      margin-top: -3px;
+    #new-map button{
       background-color: transparent;
       border: none;
       color:  #EEE;
@@ -23,7 +21,16 @@ body {
       font-size: 40px;
     }
 
-    .new-map:hover {
+    #new-map.open{
+      transition: 0.30s;
+      transform: rotate(45deg);
+    }
+
+    #new-map.open:hover{
+      transform: rotate(45deg);
+    }
+
+    #new-map:hover {
       transition: 0.30s;
       transform: rotate(90deg);
     }
@@ -96,7 +103,8 @@ body {
   }
 
   #mapid {
-    margin-top: 6vh;
+    margin-left: -1.5vw;
+    margin-top: 4vh;
     height: 94vh;
     width: 100vw;
 
@@ -107,19 +115,31 @@ body {
   }
 
   #create-map{
-    visibility: hidden;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
   }
 
-  #create-map.toggled{
-    visibility: visible;
-    border: none;
-    z-index: 1000;
-    width: 30vw;
-    height: 30vh;
-    background-color: black;
+  #create-map.open{
+    width: 250px;
   }
 
   #map-creator{
     visibility: hidden;
+  }
+
+  main{
+    transition: margin-left .5s;
+    padding: 20px;
+  }
+
+  main.open{
+    margin-left: 250px;
   }
 }

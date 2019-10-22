@@ -10,10 +10,15 @@ $(document).ready(function() {
     $('#login').toggleClass('toggled')
   });
 
-  $('.new-map').click(function() {
-    $('#create-map').toggleClass('toggled')
+  $('#new-map').click(function() {
+    $('#create-map').toggleClass('open')
+    $('main').toggleClass('open')
+    $('#new-map').toggleClass('open')
   });
 
+<<<<<<< HEAD
+  initMap();
+=======
   //MAP CLICK
   map.on('click', function(event) {
     console.log('trying to load a bubble');
@@ -29,6 +34,7 @@ $(document).ready(function() {
     // });
   });
 
+>>>>>>> f5b5daad0f26952598b6ac1fdede500448de1b05
 });
 
 const initMap = (map) => {
