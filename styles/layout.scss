@@ -2,6 +2,7 @@
 
 body {
   background-color: #EEE;
+  overflow: hidden;
 
   nav {
     z-index: 1000;
@@ -19,6 +20,7 @@ body {
       height: 40px;
       width: 60px;
       font-size: 40px;
+      outline: none;
     }
 
     #new-map.open{
@@ -44,9 +46,10 @@ body {
       width: 15vw;
       margin-right: -2vw;
       color:  #F2FF03;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Muli', sans-serif;
       font-size: 2vw;
       background-color: transparent;
+      outline: none;
     }
 
     .login-register:hover {
@@ -85,54 +88,64 @@ body {
       margin-bottom: 2vh;
       height: 30px;
       color: white;
+      outline: none;
+      font-family: 'Muli', sans-serif;
+    }
+
+    textarea:focus::placeholder{
+      visibility: hidden;
     }
 
     .login{
       width: 100%;
       font-size: 1.5vw;
       color: white;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Muli', sans-serif;
       border: none;
       background-color: transparent;
       margin-bottom: 5px;
+      outline: none;
     }
 
     .login:hover {
       cursor: pointer;
+      color: lightgray;
     }
 
     .register {
       font-size: 1.5vw;
       color: white;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Muli', sans-serif;
       border: none;
       background-color: transparent;
       width: 100%;
       margin-top: 2vh;
+      outline: none;
     }
 
     .register:hover {
       cursor:pointer;
+      color: lightgrey;
     }
   }
 
   #mapid {
     margin-left: -1.5vw;
     margin-top: 4vh;
-    height: 94vh;
+    height: 96.5vh;
     width: 100vw;
 
     .leaflet-control-zoom {
     left: 96vw;
-    margin-top: 80vh;
+    margin-top: 83vh;
     transition: 0.5s;
     }
   }
 
   #mapid.open {
     .leaflet-control-zoom {
-      left: 78vw;
-      margin-top: 80vh;
+      left: 56vw;
+      margin-top: 83vh;
       transition: 0.5s;
     }
   }
@@ -144,13 +157,13 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: white;
     overflow-x: hidden;
     transition: 0.5s;
   }
 
   #create-map.open{
-    width: 25vw;
+    width: 40vw;
   }
 
   #map-creator{
@@ -163,6 +176,32 @@ body {
   }
 
   main.open{
-    margin-left: 25vw;
+    margin-left: 40vw;
+  }
+
+  #map-name {
+    text-indent: 1vw;
+    margin-top: 10vh;
+    margin-left: 1vw;
+    width: 37vw;
+    background-color: white;
+    border: solid, black, 3px;
+    border-right: none;
+    border-left: none;
+    resize: none;
+    font-family: 'Muli', sans-serif;
+    color: black;
+    font-size: 7vh;
+    height: 7vh;
+    outline: none;
+  }
+
+  #map-name::placeholder{
+    text-indent: 1vw;
+    opacity: 1;
+  }
+
+  #map-name:focus::placeholder{
+    visibility: hidden;
   }
 }
