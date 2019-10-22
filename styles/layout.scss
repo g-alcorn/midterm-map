@@ -56,6 +56,10 @@ body {
       color: #EEE;
       cursor: pointer;
     }
+
+    .login-register:active {
+      transform: scale(0.95);
+    }
   }
 
   .create-map{
@@ -112,6 +116,10 @@ body {
       color: lightgray;
     }
 
+    .login:active {
+      transform: scale(0.95);
+    }
+
     .register {
       font-size: 1.5vw;
       color: white;
@@ -121,6 +129,10 @@ body {
       width: 100%;
       margin-top: 2vh;
       outline: none;
+    }
+
+    .register:active {
+      transform: scale(0.95);
     }
 
     .register:hover {
@@ -151,6 +163,7 @@ body {
   }
 
   #create-map{
+    display: flex;
     height: 100%;
     width: 0;
     position: fixed;
@@ -180,8 +193,7 @@ body {
   }
 
   #map-name {
-    text-indent: 1vw;
-    margin-top: 10vh;
+    margin-top: 5vh;
     margin-left: 1vw;
     width: 37vw;
     background-color: white;
@@ -197,11 +209,89 @@ body {
   }
 
   #map-name::placeholder{
-    text-indent: 1vw;
+    padding-top: 1vh;
     opacity: 1;
   }
 
   #map-name:focus::placeholder{
     visibility: hidden;
+  }
+
+  #map-description {
+    margin-top: 7vh;
+    margin-left: 1vw;
+    width: 37vw;
+    background-color: white;
+    border: solid, black, 3px;
+    border-right: none;
+    border-left: none;
+    resize: none;
+    font-family: 'Muli', sans-serif;
+    color: black;
+    font-size: 7vh;
+    height: 23vh;
+    outline: none;
+    line-height: 7vh;
+    overflow: hidden;
+  }
+
+  #map-description::placeholder{
+    opacity: 1;
+  }
+
+  #map-description:focus::placeholder{
+    visibility: hidden;
+  }
+
+  #save-cancel {
+    display: flex;
+    justify-content: space-between;
+    }
+
+  .save {
+    border: solid, 3px;
+    border-color: black;
+    background-color: white;
+    color: black;
+    font-family: 'Muli', sans-serif;
+    margin-top: 7vh;
+    margin-left: 1vw;
+    font-size: 7vh;
+    outline: none;
+    height: 7vh;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .save:active {
+    transform: scale(0.95);
+  }
+
+  .cancel {
+    border: solid, 3px;
+    border-color: black;
+    background-color: white;
+    color: black;
+    font-family: 'Muli', sans-serif;
+    margin-top: 7vh;
+    font-size: 7vh;
+    height: 7vh;
+    margin-right: 2vw;
+    cursor: pointer;
+    transition: 0.2s;
+    outline: none;
+  }
+
+  .cancel:active {
+    transform: scale(0.95);
+  }
+
+  #add-map{
+    margin-top: 18vh;
+    font-family: 'Muli', sans-serif;
+    height: 7vh;
+    font-size: 7vh;
+    margin-left: 1vw;
+    font-weight: bold;
   }
 }
