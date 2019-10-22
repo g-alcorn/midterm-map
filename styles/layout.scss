@@ -204,12 +204,12 @@ body {
     font-family: 'Muli', sans-serif;
     color: black;
     font-size: 7vh;
-    height: 7vh;
+    height: 8vh;
     outline: none;
+    line-height: 7vh;
   }
 
   #map-name::placeholder{
-    padding-top: 1vh;
     opacity: 1;
   }
 
@@ -229,9 +229,9 @@ body {
     font-family: 'Muli', sans-serif;
     color: black;
     font-size: 7vh;
-    height: 23vh;
+    height: 25vh;
     outline: none;
-    line-height: 7vh;
+    line-height: 8vh;
     overflow: hidden;
   }
 
@@ -287,12 +287,12 @@ body {
   }
 
   #add-map{
-    margin-top: 18vh;
+    margin-top: 17vh;
     font-family: 'Muli', sans-serif;
     height: 7vh;
     font-size: 7vh;
     margin-left: 1vw;
     font-weight: bold;
-    line-height: 7vh;
+    line-height: 8vh;
   }
 }
