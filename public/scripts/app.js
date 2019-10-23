@@ -67,14 +67,22 @@ $(document).ready(function() {
   //REGISTER FORM
   $('#registerform').on('submit', function (event) {
     event.preventDefault();
-
+    console.log("messagr from appjs")
+    registrationData = { email: $('#email'), password: $('#password') };
+    console.log(registrationData);
     //RESET EMAIL AND PASSWORD TO BLANK UPON SUBMISSION AND CLOSE FORM
     //SWITCH TO LOGGED IN
-    $('#registerform').removeClass('toggled');
-    $('#email').val('');
-    $('#password').val('');
-    $('.login-register').addClass('logged-in');
-    $('#user-menu-btn').addClass('logged-in');
+    $.ajax('/register', { registrationData, method: 'POST' })
+      .done(function(INFOFROMSERVER) {
+        $('#registerform').removeClass('toggled');
+        $('#email').val('');
+        $('#password').val('');
+        $('.login-register').addClass('logged-in');
+        $('#user-menu-btn').addClass('logged-in');
+      })
+      .fail(function(error) {
+        console.log(error);
+      })
   });
 
   //CHANGE BETWEEN LOGIN AND REGISTER FORMS
