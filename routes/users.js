@@ -12,6 +12,7 @@ const router  = express.Router();
 module.exports = (db) => {
   //LOGIN BUTTON PRESS - AUTHENTICATE
   router.post('/login', (req, res) => {
+    console.log("login button pressed");
     //CALL AUTHENTICATION FUNCTION FROM HELPER FILE
     console.log(req.body);
     // const serializedUser = $( 'NAME OF TEXT INPUT' ).serialize();
@@ -44,6 +45,7 @@ module.exports = (db) => {
 
   //REGISTER BUTTON PRESS - AUTHENTICATE
   router.post('/register', (req, res) => {
+    console.log("register button pressed");
     //validate form data
     //check if fields are empty, have min number of characters, etc
     //if fail, render error?
