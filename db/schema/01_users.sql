@@ -1,4 +1,5 @@
--- Drop and recreate Users table (Example)
+CREATE DATABASE midterm;
+\c midterm;
 
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS maps CASCADE;
