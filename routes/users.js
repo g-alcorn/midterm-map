@@ -53,12 +53,13 @@ module.exports = (db) => {
 
   //REGISTER BUTTON PRESS - AUTHENTICATE
   router.post('/register', (req, res) => {
-    const { email, password } = req.body.registrationData;
+    console.log(req.body);
+    const { email, password } = req.body;
     console.log("register button pressed");
-    console.log(email + " " + password);
 
     //formErrors will be FALSE if fields are valid
     const formErrors = validateForm(email, password);
+    console.log(formErrors);
     if (!formErrors) {
       registration(email, password, db);
     } else {
