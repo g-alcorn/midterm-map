@@ -38,7 +38,9 @@ module.exports = (db) => {
             .json({ error: err.message });
         });
     } else if (!loggedIn) {
-      //send error form in response to be rendered by ajax
+      res
+        .status(302)
+        .json({ error: err.message });
     }
 
   });
@@ -51,15 +53,18 @@ module.exports = (db) => {
 
   //REGISTER BUTTON PRESS - AUTHENTICATE
   router.post('/register', (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body.registrationData;
     console.log("register button pressed");
+    console.log(email + " " + password);
 
     //formErrors will be FALSE if fields are valid
-    const formErrors = validateForm(username, password);
+    const formErrors = validateForm(email, password);
     if (!formErrors) {
-      registration(username, password, db);
+      registration(email, password, db);
     } else {
-      console.log(formErrors);
+      res
+        .status(302)
+        .json({ error: err.message});
     }
   });
 
