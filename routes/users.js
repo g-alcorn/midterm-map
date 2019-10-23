@@ -13,8 +13,9 @@ module.exports = (db) => {
   //LOGIN BUTTON PRESS - AUTHENTICATE
   router.post('/login', (req, res) => {
     //CALL AUTHENTICATION FUNCTION FROM HELPER FILE
-    const serializedUser = $( 'NAME OF TEXT INPUT' ).serialize();
-    const serializedPass = $( 'NAME OF PASSWORD INPUT' ).serialize();
+    console.log(req.body);
+    // const serializedUser = $( 'NAME OF TEXT INPUT' ).serialize();
+    // const serializedPass = $( 'NAME OF PASSWORD INPUT' ).serialize();
     //const loggedIn = authenticate.authorize(serializedUser, serializedPass, db);
 
     //IF AUTHENTICATED
