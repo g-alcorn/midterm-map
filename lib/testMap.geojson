@@ -36,7 +36,7 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": { "content": "<h1>big text point!</h1>" },
       "geometry": {
         "type": "Point",
         "coordinates": [
