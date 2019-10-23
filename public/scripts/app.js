@@ -85,6 +85,13 @@ $(document).ready(function() {
       })
   });
 
+  //LOGOUT BUTTON
+  $('#logout').click(function() {
+    $('#user-menu').removeClass('toggled');
+    $('.login-register').removeClass('logged-in');
+    $('#user-menu-btn').removeClass('logged-in');
+  })
+
   //CHANGE BETWEEN LOGIN AND REGISTER FORMS
   $('#register').click(function() {
     $('#login').removeClass('toggled')

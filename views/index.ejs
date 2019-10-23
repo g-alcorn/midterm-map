@@ -73,10 +73,12 @@
     <header id="create-map">
       <div>
         <p id="add-map">create a new map.</p>
-          <input name="map-name" id="map-name" placeholder="map name" value="map-name">
-          <input name="map-description" id="map-description" value="description" placeholder="description">
+        <form id="create-new-map" action="/:id/maps/create" method="POST"></form>
+          <textarea name="map-name" id="map-name" placeholder="map name" value="map-name"></textarea>
+          <textarea name="map-description" id="map-description" value="description" placeholder="description"></textarea>
           <div id="save-cancel">
             <button class="save" type="button" action="submit">save</button>
+          </form>
             <button class="cancel" type="button" action="submit">cancel</button>
           </div>
       </div>
