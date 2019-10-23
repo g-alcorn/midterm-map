@@ -38,7 +38,7 @@ $(document).ready(function() {
     $('#view-maps').removeClass('toggled')
     $('#mapid').removeClass('open')
     $('main').removeClass('open')
-  })
+  });
 
   $('LINK TO LOAD MAP ID').click(function(event) {
     event.preventDefault();
@@ -48,7 +48,9 @@ $(document).ready(function() {
       })
       .fail(function(error) {
         console.log(error);
-      })
+      });
+  });
+
   //LOGIN FORM
   $('#login-form').on('submit', function (event) {
     event.preventDefault();
@@ -60,7 +62,7 @@ $(document).ready(function() {
     $('#password').val('');
     $('.login-register').addClass('logged-in');
     $('#user-menu-btn').addClass('logged-in');
-  })
+  });
 
   //REGISTER FORM
   $('#registerform').on('submit', function (event) {
@@ -73,13 +75,13 @@ $(document).ready(function() {
     $('#password').val('');
     $('.login-register').addClass('logged-in');
     $('#user-menu-btn').addClass('logged-in');
-  })
+  });
 
   //CHANGE BETWEEN LOGIN AND REGISTER FORMS
   $('#register').click(function() {
     $('#login').removeClass('toggled')
     $('#registerform').addClass('toggled')
-  })
+  });
 
 
   //CHANGE JQUERY SELECTOR TO MATCH NEW/EDIT MAP BUTTONS
@@ -184,7 +186,6 @@ const loadMap = (geoJsonUrl) => {
   const dataFile = geoJsonUrl;
 
   //replace myFile with dataFile upon successfully linking to geojson
-  let myLayer = L.geoJSON(myFile, {onEachFeature: onEachFeature});
-  myLayer.addTo(map);
-
+  let myLayer = L.geoJSON(myFile, { onEachFeature: onEachFeature });
+  myLayer.addTo(map)
 };
