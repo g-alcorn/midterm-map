@@ -205,8 +205,6 @@ body {
     width: 37vw;
     background-color: white;
     border: solid, black, 3px;
-    border-right: none;
-    border-left: none;
     resize: none;
     font-family: 'Muli', sans-serif;
     color: black;
@@ -230,8 +228,6 @@ body {
     width: 37vw;
     background-color: white;
     border: solid, black, 3px;
-    border-right: none;
-    border-left: none;
     resize: none;
     font-family: 'Muli', sans-serif;
     color: black;
@@ -269,6 +265,7 @@ body {
     cursor: pointer;
     transition: 0.2s;
     line-height: 7vh;
+    width: 48%;
   }
 
   .save:active {
@@ -289,6 +286,7 @@ body {
     transition: 0.2s;
     outline: none;
     line-height: 7vh;
+    width: 48%;
   }
 
   .cancel:active {
@@ -301,7 +299,7 @@ body {
     height: 7vh;
     font-size: 7vh;
     margin-left: 1vw;
-    font-weight: bold;
+    // font-weight: bold;
     line-height: 8vh;
   }
 
