@@ -20,6 +20,9 @@
     integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
     crossorigin=""/>
 
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/f481d02160.js" crossorigin="anonymous"></script>
+
     <script
     src="http://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -43,16 +46,24 @@
       </div>
       <div>
       <button class="login-register" type="button">login / register</button>
+      <button id="user-menu-btn" type="button">
+        <i id="profile-pic" class="fas fa-user-circle"></i>
+      </button>
+      <div id="user-menu">
+      </div>
       <div id="login">
-      <form action="/login" method="POST">
-        <textarea type="username" name="username" id="username" placeholder="username"></textarea>
-        <textarea type="username" name="password" id="password" placeholder="password"></textarea>
+      <form action="/login" method="POST" id="login-form">
+        <textarea type="email" name="email" id="email" placeholder="email"></textarea>
+        <input type="password" id="password" name="password" placeholder="password">
         <button type="submit" class="login">login</button>
       </form>
-      <form action="/register" method="POST">
-        <button type="button" method="POST" class="register">create account</button>
-      </form>
-
+        <button type="button" id="register" class="register">create account</button>
+      </div>
+      <div id="registerform">
+          <form action="/register" method="POST" id="register-form">
+            <textarea type="email" name="email" id="email" placeholder="email"></textarea>
+            <input type="password" id="password" name="password" placeholder="password">
+            <button type="submit" class="register">register</button>
       </div>
       </div>
     </nav>

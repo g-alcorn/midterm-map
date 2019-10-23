@@ -8,25 +8,68 @@ $(document).ready(function() {
   //EVENT LISTENERS
   //TOGGLE LOGIN BOX
   $('.login-register').click(function() {
-    $('#login').toggleClass('toggled')
+    if (!$('#registerform').hasClass('toggled')){
+      $('#login').toggleClass('toggled');
+    } else {
+      $('#registerform').removeClass('toggled');
+    }
   });
 
-  //TOGGLE MAP CREATOR SIDEBAR
+  //TOGGLE MAP CREATOR SLIDE DOWN MENU
   $('#new-map').click(function() {
     $('#create-map').toggleClass('open')
     $('#new-map').toggleClass('open')
   });
 
+  //OPEN SIDEBAR MENU
   $('.mdc-fab').click(function() {
     $('#view-maps').addClass('toggled')
     $('#mapid').addClass('open')
     $('main').addClass('open')
   })
 
+  //
+  $('#user-menu-btn').click(function() {
+    $('#user-menu').toggleClass('toggled');
+  })
+
+  //CLOSE SIDEBAR MENU
   $('#back').click(function() {
     $('#view-maps').removeClass('toggled')
     $('#mapid').removeClass('open')
     $('main').removeClass('open')
+  })
+
+  //LOGIN FORM
+  $('#login-form').on('submit', function (event) {
+    event.preventDefault();
+
+    //RESET EMAIL AND PASSWORD TO BLANK UPON SUBMISSION AND CLOSE FORM
+    //SWITCH TO LOGGED IN
+    $('#login').removeClass('toggled')
+    $('#email').val('');
+    $('#password').val('');
+    $('.login-register').addClass('logged-in');
+    $('#user-menu-btn').addClass('logged-in');
+  })
+
+  //REGISTER FORM
+  $('#registerform').on('submit', function (event) {
+    event.preventDefault();
+
+    //RESET EMAIL AND PASSWORD TO BLANK UPON SUBMISSION AND CLOSE FORM
+    //SWITCH TO LOGGED IN
+    $('#registerform').removeClass('toggled');
+    $('#email').val('');
+    $('#password').val('');
+    $('.login-register').addClass('logged-in');
+    $('#user-menu-btn').addClass('logged-in');
+  })
+
+  //CHANGE BETWEEN LOGIN AND REGISTER FORMS
+  $('#register').click(function() {
+    $('#login').removeClass('toggled')
+    $('#registerform').addClass('toggled')
   })
 
 
