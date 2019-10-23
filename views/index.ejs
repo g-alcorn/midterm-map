@@ -50,10 +50,11 @@
         <i id="profile-pic" class="fas fa-user-circle"></i>
       </button>
       <div id="user-menu">
+        <button id="logout" type="button">logout</button>
       </div>
       <div id="login">
       <form action="/login" method="POST" id="login-form">
-        <textarea type="email" name="email" id="email" placeholder="email"></textarea>
+        <input type="email" name="email" id="email" placeholder="email">
         <input type="password" id="password" name="password" placeholder="password">
         <button type="submit" class="login">login</button>
       </form>
@@ -61,7 +62,7 @@
       </div>
       <div id="registerform">
           <form action="/register" method="POST" id="register-form">
-            <textarea type="email" name="email" id="email" placeholder="email"></textarea>
+            <input type="email" name="email" id="email" placeholder="email"></textarea>
             <input type="password" id="password" name="password" placeholder="password">
             <button type="submit" class="register">register</button>
           </form>
@@ -73,9 +74,9 @@
       <div>
         <p id="add-map">create a new map.</p>
           <textarea name="map-name" id="map-name" placeholder="map name"></textarea>
-          <textarea name="map-description" id="map-description" placeholder="description"></textarea>
+          <textarea name="map-description" id="map-description" value="description" placeholder="description"></textarea>
           <div id="save-cancel">
-            <button class="save" type="button" action="submit" value="save">save</button>
+            <button class="save" type="button" action="submit">save</button>
             <button class="cancel" type="button" action="submit">cancel</button>
           </div>
       </div>

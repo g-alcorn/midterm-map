@@ -80,7 +80,7 @@ body {
     overflow-x: hidden;
     transition: 0.5s;
 
-    textarea {
+    #email {
       width: 83%;
       resize: none;
       border-bottom: solid;
@@ -118,7 +118,7 @@ body {
       visibility: hidden;
     }
 
-    textarea:focus::placeholder{
+    #email:focus::placeholder{
       visibility: hidden;
     }
 
@@ -380,7 +380,7 @@ body {
     overflow-x: hidden;
     transition: 0.5s;
 
-    textarea {
+    #email {
       width: 83%;
       resize: none;
       border-bottom: solid;
@@ -418,7 +418,7 @@ body {
       visibility: hidden;
     }
 
-    textarea:focus::placeholder{
+    #email:focus::placeholder{
       visibility: hidden;
     }
 
@@ -497,5 +497,25 @@ body {
     margin-right: 2vw;
     overflow-x: hidden;
     transition: 0.5s;
+  }
+
+  #logout{
+    width: 100%;
+    font-size: 1.5vw;
+    color: white;
+    font-family: 'Muli', sans-serif;
+    border: none;
+    background-color: transparent;
+    margin-bottom: 5px;
+    outline: none;
+  }
+
+  #logout:hover {
+    cursor: pointer;
+    color: lightgray;
+  }
+
+  #logout:active {
+    transform: scale(0.95);
   }
 }
