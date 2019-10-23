@@ -67,12 +67,15 @@ $(document).ready(function() {
   //REGISTER FORM
   $('#registerform').on('submit', function (event) {
     event.preventDefault();
-    console.log("messagr from appjs")
-    registrationData = { email: $('#email'), password: $('#password') };
-    console.log(registrationData);
+    registrationData = { email: $('#register-email').val(), password: $('#register-password').val() };
+
     //RESET EMAIL AND PASSWORD TO BLANK UPON SUBMISSION AND CLOSE FORM
     //SWITCH TO LOGGED IN
-    $.ajax('/register', { registrationData, method: 'POST' })
+    $.ajax({
+        url: '/register',
+        data: registrationData,
+        method: 'POST'
+      })
       .done(function(INFOFROMSERVER) {
         $('#registerform').removeClass('toggled');
         $('#register-email').val('');
