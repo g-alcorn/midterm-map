@@ -47,7 +47,9 @@ module.exports = (db) => {
 
   //SHOW SPECIFIC MAP
   router.get('/:id/maps/:map_id', (req, res) => {
-
+    //DO DATABASE QUERY FOR THE MAP ID
+    //GET THE URL FOR THE GEOJSON DATA
+    //SEND THAT URL BACK IN RESPONSE TO APP.JS
   });
 
 
