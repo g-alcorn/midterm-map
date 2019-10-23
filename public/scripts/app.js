@@ -40,7 +40,6 @@ $(document).ready(function() {
     $('main').removeClass('open')
   })
 
-<<<<<<< HEAD
   $('LINK TO LOAD MAP ID').click(function(event) {
     event.preventDefault();
     $.ajax('/MAPIDLINK', {method: 'GET'})
@@ -50,7 +49,6 @@ $(document).ready(function() {
       .fail(function(error) {
         console.log(error);
       })
-=======
   //LOGIN FORM
   $('#login-form').on('submit', function (event) {
     event.preventDefault();
@@ -81,7 +79,6 @@ $(document).ready(function() {
   $('#register').click(function() {
     $('#login').removeClass('toggled')
     $('#registerform').addClass('toggled')
->>>>>>> 7eed9924f6f26a598592a82ec05a250095dcca9e
   })
 
 
