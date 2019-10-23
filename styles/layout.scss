@@ -80,7 +80,7 @@ body {
     overflow-x: hidden;
     transition: 0.5s;
 
-    #email {
+    #login-email {
       width: 83%;
       resize: none;
       border-bottom: solid;
@@ -97,7 +97,7 @@ body {
       font-family: 'Muli', sans-serif;
     }
 
-    #password {
+    #login-password {
       width: 83%;
       resize: none;
       border-bottom: solid;
@@ -114,11 +114,11 @@ body {
       font-family: 'Muli', sans-serif;
     }
 
-    #password:focus::placeholder {
+    #login-password:focus::placeholder {
       visibility: hidden;
     }
 
-    #email:focus::placeholder{
+    #login-email:focus::placeholder{
       visibility: hidden;
     }
 
@@ -380,7 +380,7 @@ body {
     overflow-x: hidden;
     transition: 0.5s;
 
-    #email {
+    #register-email {
       width: 83%;
       resize: none;
       border-bottom: solid;
@@ -397,7 +397,7 @@ body {
       font-family: 'Muli', sans-serif;
     }
 
-    #password {
+    #register-password {
       width: 83%;
       resize: none;
       border-bottom: solid;
@@ -414,11 +414,11 @@ body {
       font-family: 'Muli', sans-serif;
     }
 
-    #password:focus::placeholder {
+    #register-password:focus::placeholder {
       visibility: hidden;
     }
 
-    #email:focus::placeholder{
+    #register-email:focus::placeholder{
       visibility: hidden;
     }
 

@@ -58,8 +58,8 @@ $(document).ready(function() {
     //RESET EMAIL AND PASSWORD TO BLANK UPON SUBMISSION AND CLOSE FORM
     //SWITCH TO LOGGED IN
     $('#login').removeClass('toggled')
-    $('#email').val('');
-    $('#password').val('');
+    $('#login-email').val('');
+    $('#login-password').val('');
     $('.login-register').addClass('logged-in');
     $('#user-menu-btn').addClass('logged-in');
   });
@@ -75,8 +75,8 @@ $(document).ready(function() {
     $.ajax('/register', { registrationData, method: 'POST' })
       .done(function(INFOFROMSERVER) {
         $('#registerform').removeClass('toggled');
-        $('#email').val('');
-        $('#password').val('');
+        $('#register-email').val('');
+        $('#register-password').val('');
         $('.login-register').addClass('logged-in');
         $('#user-menu-btn').addClass('logged-in');
       })
