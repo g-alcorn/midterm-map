@@ -7,34 +7,38 @@
 
 const express = require('express');
 const router  = express.Router();
-//const authenticate = require('./helpers/authenticate');
+const authenticate = require('../helpers/authenticate');
+const register = require('../helpers/register');
 
 module.exports = (db) => {
   //LOGIN BUTTON PRESS - AUTHENTICATE
   router.post('/login', (req, res) => {
     console.log("login button pressed");
     //CALL AUTHENTICATION FUNCTION FROM HELPER FILE
-    console.log(req.body);
-    // const serializedUser = $( 'NAME OF TEXT INPUT' ).serialize();
-    // const serializedPass = $( 'NAME OF PASSWORD INPUT' ).serialize();
-    //const loggedIn = authenticate.authorize(serializedUser, serializedPass, db);
-
+    const { username, password } = req.body;
+    console.log(username, password);
+    const loggedIn = authenticate.authorize(username, password, db);
     //IF AUTHENTICATED
     //set req.session to include the user id!!!!!!!!!
     //DATABASE QUERY FOR MAP IDs OWNED BY USER
-    db.query(`SELECT maps.id, maps.name FROM maps JOIN users ON maps.user_id = users.id WHERE maps.user_id = ${serializedUser};`)
-      .then(data => {
-        //response should include list of map_IDs for user who logged in
-        //response should include SEPARATE list of map_IDs for all users
-        const mapsList = data.rows;
-        res.json({ mapsList });
-      })
-      .catch(err => {
-        //CREATE ERROR CODE
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+    if (loggedIn) {
+      db.query(`SELECT maps.id, maps.name FROM maps JOIN users ON maps.user_id = users.id WHERE maps.user_id = ${serializedUser};`)
+        .then(data => {
+          //response should include list of map_IDs for user who logged in
+          //response should include SEPARATE list of map_IDs for all users
+          const mapsList = data.rows;
+          res.json({ mapsList });
+        })
+        .catch(err => {
+          //CREATE ERROR CODE
+          res
+            .status(500)
+            .json({ error: err.message });
+        });
+    } else if (!loggedIn) {
+      //send error form in response to be rendered by ajax
+    }
+
   });
 
   //LOGOUT BUTTON PRESS
@@ -45,6 +49,7 @@ module.exports = (db) => {
 
   //REGISTER BUTTON PRESS - AUTHENTICATE
   router.post('/register', (req, res) => {
+    const { username, password } = req.body;
     console.log("register button pressed");
     //validate form data
     //check if fields are empty, have min number of characters, etc
