@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <!-- Font -->
-    <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i&display=swap" rel="stylesheet">
 
     <!-- Leaflet CSS File -->
     <link rel="stylesheet" type="text/css" href="/leaflet/leaflet.css"
@@ -43,12 +43,14 @@
       </div>
       <div>
       <button class="login-register" type="button">login / register</button>
-      <form action="/login" method="POST" id="login">
+      <div id="login">
+      <form action="/login" method="POST">
         <textarea name="username" id="username" placeholder="username"></textarea>
         <textarea name="password" id="password" placeholder="password"></textarea>
         <button type="button" method="POST" class="login">login</button>
+      </form>
         <button type="button" method="POST" class="register">create account</button>
-        </form>
+      </div>
       </div>
     </nav>
 
