@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const authenticate = require('./helpers/authenticate.js');
+//const authenticate = require('./helpers/authenticate');
 
 module.exports = (db) => {
   //LOGIN BUTTON PRESS - AUTHENTICATE
@@ -15,7 +15,7 @@ module.exports = (db) => {
     //CALL AUTHENTICATION FUNCTION FROM HELPER FILE
     const serializedUser = $( 'NAME OF TEXT INPUT' ).serialize();
     const serializedPass = $( 'NAME OF PASSWORD INPUT' ).serialize();
-    const loggedIn = authenticate.authorize(serializedUser, serializedPass, db);
+    //const loggedIn = authenticate.authorize(serializedUser, serializedPass, db);
 
     //IF AUTHENTICATED
     //set req.session to include the user id!!!!!!!!!
@@ -47,10 +47,10 @@ module.exports = (db) => {
     //check if fields are empty, have min number of characters, etc
     //if fail, render error?
     //else validate on database
-    db.query(`SELECT id FROM users;`)
+    db.query(`SELECT email FROM users;`)
       .then(data => {
         //potentially need to parse data
-
+        console.log(data.rows);
         //run for loop to check if user already exists
         //if yes, respond with error
         //else INSERT to db
