@@ -7,17 +7,18 @@
 
 const express = require('express');
 const router  = express.Router();
-const authenticate = require('../helpers/authenticate');
-const register = require('../helpers/register');
+const { authorize } = require('../helpers/authenticate');
+const { registration, validateForm, saveUser } = require('../helpers/register');
 
 module.exports = (db) => {
   //LOGIN BUTTON PRESS - AUTHENTICATE
   router.post('/login', (req, res) => {
     console.log("login button pressed");
+    console.log(registration);
     //CALL AUTHENTICATION FUNCTION FROM HELPER FILE
     const { username, password } = req.body;
     console.log(username, password);
-    const loggedIn = authenticate.authorize(username, password, db);
+    const loggedIn = authorize(username, password, db);
     //IF AUTHENTICATED
     //set req.session to include the user id!!!!!!!!!
     //DATABASE QUERY FOR MAP IDs OWNED BY USER
@@ -27,6 +28,7 @@ module.exports = (db) => {
           //response should include list of map_IDs for user who logged in
           //response should include SEPARATE list of map_IDs for all users
           const mapsList = data.rows;
+          console.log(mapsList);
           res.json({ mapsList });
         })
         .catch(err => {
@@ -51,26 +53,14 @@ module.exports = (db) => {
   router.post('/register', (req, res) => {
     const { username, password } = req.body;
     console.log("register button pressed");
-    //validate form data
-    //check if fields are empty, have min number of characters, etc
-    //if fail, render error?
-    //else validate on database
-    db.query(`SELECT email FROM users;`)
-      .then(data => {
-        //potentially need to parse data
-        console.log(data.rows);
-        //run for loop to check if user already exists
-        //if yes, respond with error
-        //else INSERT to db
-        //set user id inside req.session to indicate logged-in
-      })
-      .catch(err => {
-        res
-        .status(500)
-        .json({ error: err.message });
-      });
 
-
+    //formErrors will be FALSE if fields are valid
+    const formErrors = validateForm(username, password);
+    if (!formErrors) {
+      registration(username, password, db);
+    } else {
+      console.log(formErrors);
+    }
   });
 
   //GET USER PROFILE
