@@ -38,7 +38,18 @@ $(document).ready(function() {
     $('#view-maps').removeClass('toggled')
     $('#mapid').removeClass('open')
     $('main').removeClass('open')
-  })
+  });
+
+  $('LINK TO LOAD MAP ID').click(function(event) {
+    event.preventDefault();
+    $.ajax('/MAPIDLINK', {method: 'GET'})
+      .done(function(geoJsonUrl) {
+        loadData();
+      })
+      .fail(function(error) {
+        console.log(error);
+      });
+  });
 
   //LOGIN FORM
   $('#login-form').on('submit', function (event) {
@@ -51,7 +62,7 @@ $(document).ready(function() {
     $('#password').val('');
     $('.login-register').addClass('logged-in');
     $('#user-menu-btn').addClass('logged-in');
-  })
+  });
 
   //REGISTER FORM
   $('#registerform').on('submit', function (event) {
@@ -64,13 +75,13 @@ $(document).ready(function() {
     $('#password').val('');
     $('.login-register').addClass('logged-in');
     $('#user-menu-btn').addClass('logged-in');
-  })
+  });
 
   //CHANGE BETWEEN LOGIN AND REGISTER FORMS
   $('#register').click(function() {
     $('#login').removeClass('toggled')
     $('#registerform').addClass('toggled')
-  })
+  });
 
 
   //CHANGE JQUERY SELECTOR TO MATCH NEW/EDIT MAP BUTTONS
@@ -103,7 +114,25 @@ const initMap = (map) => {
 
   map.addLayer(background);
 
-  //add test geojson
+};
+
+//OPEN POPUP WITH LATLNG
+const onMapClick = (e, map) => {
+  var popup = L.popup();
+  popup
+    .setLatLng(e.latlng)
+    .setContent("You clicked the map at " + e.latlng.toString());
+  map.openPopup(popup);
+};
+
+//DEFINE POPUP CONTENT FOR EACH FEATURE WITHIN A GEOJSON
+const onEachFeature = (feature, layer) => {
+  var popupContent = feature.properties.content;
+  layer.bindPopup(popupContent);
+};
+
+const loadMap = (geoJsonUrl) => {
+  //test geojson data
   const myFile = {
     "type": "FeatureCollection",
     "features": [
@@ -154,30 +183,9 @@ const initMap = (map) => {
     ]
   };
 
-  const myLayer = L.geoJSON(myFile, {onEachFeature: onEachFeature}).addTo(map);
-  //myLayer.addData(myFile);
+  const dataFile = geoJsonUrl;
 
-  //onEachFeature(myFile, myLayer);
+  //replace myFile with dataFile upon successfully linking to geojson
+  let myLayer = L.geoJSON(myFile, { onEachFeature: onEachFeature });
+  myLayer.addTo(map)
 };
-
-//OPEN POPUP WITH LATLNG
-const onMapClick = (e, map) => {
-  var popup = L.popup();
-  popup
-    .setLatLng(e.latlng)
-    .setContent("You clicked the map at " + e.latlng.toString());
-  map.openPopup(popup);
-};
-
-
-const onEachFeature = (feature, layer) => {
-  var popupContent = "<p>I started out as a GeoJSON " +
-      feature.geometry.type + ", but now I'm a Leaflet vector!</p>";
-
-  if (feature.properties && feature.properties.popupContent) {
-    popupContent += feature.properties.popupContent;
-  }
-
-  layer.bindPopup(popupContent);
-}
-
