@@ -6,7 +6,7 @@ module.exports.authorize = (user, password, db) => {
   } else if (user) {
     //DB query to find user ID
     db
-      .query(`SELECT id, password FROM users WHERE name = ${user}`)
+      .query(`SELECT id, password FROM users WHERE name = ${user} GROUP BY id`)
       .then(results => {
         console.log(results.rows);
         const { id, password } = results.rows;

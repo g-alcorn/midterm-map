@@ -1,8 +1,10 @@
 module.exports.registration = (user, password, db) => {
+  console.log('checking current users')
   if (!user || !password) {
     //tell server fields are empty
     return false;
   } else {
+    console.log('db query')
     db.query(`SELECT email FROM users WHERE email = ${user}`)
       .then(data => {
         if (!data.rows) {
@@ -15,15 +17,17 @@ module.exports.registration = (user, password, db) => {
         }
       })
       .catch(err => {
-        res.status(500)
+        console.log('db query error! ' + err)
+        //res.status(500)
         .json({ error: err.message });
-        return false;
+        //return false;
       })
   }
 }
 
 module.exports.validateForm = (username, password) => {
     let response = '';
+    console.log('validating form')
     if (!username) {
       response += 'Please enter email!';
     }
