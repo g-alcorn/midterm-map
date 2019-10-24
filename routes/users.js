@@ -14,10 +14,9 @@ module.exports = (db) => {
   //LOGIN BUTTON PRESS - AUTHENTICATE
   router.post('/login', (req, res) => {
     console.log("login button pressed");
-    console.log(registration);
+    console.log(req.body);
     //CALL AUTHENTICATION FUNCTION FROM HELPER FILE
     const { username, password } = req.body;
-    console.log(username, password);
     const loggedIn = authorize(username, password, db);
     //IF AUTHENTICATED
     //set req.session to include the user id!!!!!!!!!
@@ -29,7 +28,8 @@ module.exports = (db) => {
           //response should include SEPARATE list of map_IDs for all users
           const mapsList = data.rows;
           console.log(mapsList);
-          res.json({ mapsList });
+          res.status(201)
+             .json({ mapsList });
         })
         .catch(err => {
           //CREATE ERROR CODE

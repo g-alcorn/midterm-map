@@ -11,8 +11,7 @@ module.exports.authorize = (user, password, db) => {
               WHERE name = $1`,
               [`${user}`])
       .then(results => {
-        console.log(results);
-        const { user, dbpassword } = results.rows;
+        const { user, password } = results.rows[0];
       })
       .catch(error => {
         return false;

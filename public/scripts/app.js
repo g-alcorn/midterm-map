@@ -86,18 +86,26 @@ $(document).ready(function() {
   $('#login-form').on('submit', function (event) {
     event.preventDefault();
 
+    let loginData = {email: $('#login-email'), password: $('#login-password')}
+
     $.ajax({
       method: 'POST',
-      data: {email: $('#login-email').val(), password: $('#login-password').val()}
+      data: loginData,
+      url: '/login'
+    })
+    .done(function() {
+      $('#login').removeClass('toggled')
+      $('#login-email').val('');
+      $('#login-password').val('');
+      $('.login-register').addClass('logged-in');
+      $('#user-menu-btn').addClass('logged-in');
+    })
+    .fail(function(error) {
+      console.log(error);
     })
 
     //RESET EMAIL AND PASSWORD TO BLANK UPON SUBMISSION AND CLOSE FORM
     //SWITCH TO LOGGED IN
-    $('#login').removeClass('toggled')
-    $('#login-email').val('');
-    $('#login-password').val('');
-    $('.login-register').addClass('logged-in');
-    $('#user-menu-btn').addClass('logged-in');
   });
 
   //REGISTER FORM
