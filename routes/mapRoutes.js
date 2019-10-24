@@ -12,7 +12,7 @@ const cookieSession = require('cookie-session');
 //ROUTES THAT WILL CREATE, EDIT, SAVE MAPS
 module.exports = (db) => {
   //NEW MAP - OPEN EDITOR WITH BLANK TEMPLATE
-  router.get('/:id/maps/create', (req, res) => {
+  router.get('/maps/create', (req, res) => {
     //call function in separate helper file
     //use same functions as edit map but starting from blank
   });
