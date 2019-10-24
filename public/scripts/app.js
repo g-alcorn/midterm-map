@@ -26,6 +26,22 @@ $(document).ready(function() {
     $('#view-maps').addClass('toggled')
     $('#mapid').addClass('open')
     $('main').addClass('open')
+    $.ajax({
+      method: 'get',
+      url: '/maps'
+    })
+    .done(function(results) {
+      //extract the data from query results
+      const arrayOfMaps = results.results.rows;
+      //generate html element with jquery
+      for(const mapInstance of arrayOfMaps) {
+        let redirect = '/' + mapInstance.user_id + '/maps/' + mapInstance.id;
+        $('#view-maps').append($(`<a href="${redirect}">${mapInstance.title}</a>`));
+      }
+    })
+    .fail(function(error) {
+      console.log(error);
+    });
   })
 
   //
@@ -40,11 +56,16 @@ $(document).ready(function() {
     $('main').removeClass('open')
   });
 
-  $('LINK TO LOAD MAP ID').click(function(event) {
+
+  //USE MAP-LIST-LINK AS CLASS FOR THE LINKS
+  $('.map-list-link').click(function(event) {
     event.preventDefault();
-    $.ajax('/MAPIDLINK', {method: 'GET'})
+    $.ajax({
+      method: 'GET',
+      url: event.currentTarget.href
+    })
       .done(function(geoJsonUrl) {
-        loadData();
+        loadData(geoJsonUrl, map);
       })
       .fail(function(error) {
         console.log(error);
@@ -127,22 +148,16 @@ const initMap = (map) => {
 
 };
 
-//OPEN POPUP WITH LATLNG
-const onMapClick = (e, map) => {
-  var popup = L.popup();
-  popup
-    .setLatLng(e.latlng)
-    .setContent("You clicked the map at " + e.latlng.toString());
-  map.openPopup(popup);
-};
-
 //DEFINE POPUP CONTENT FOR EACH FEATURE WITHIN A GEOJSON
 const onEachFeature = (feature, layer) => {
-  var popupContent = feature.properties.content;
-  layer.bindPopup(popupContent);
+  var popup = L.popup();
+  popup
+    .setLatLng(feature.latlng)
+    .setContent(feature.properties.content);
+  layer.bindPopup(popup);
 };
 
-const loadMap = (geoJsonUrl) => {
+const loadData = (geoJsonUrl, map) => {
   //test geojson data
   const myFile = {
     "type": "FeatureCollection",
@@ -193,10 +208,18 @@ const loadMap = (geoJsonUrl) => {
       }
     ]
   };
+  const dataSource = geoJsonUrl.rows[0].location;
+  $.ajax({
+    url: '../testMap.geojson',
+    method: 'GET'
+  })
+    .done(function(geojsonData) {
+      //myFile will be replaced with the geojsonData variable from ajax request
+      let featureGroup = L.geoJSON(myFile, { onEachFeature: onEachFeature });
+      featureGroup.addTo(map)
+    })
+    .fail(function(error) {
+      console.log(error);
+    });
 
-  const dataFile = geoJsonUrl;
-
-  //replace myFile with dataFile upon successfully linking to geojson
-  let myLayer = L.geoJSON(myFile, { onEachFeature: onEachFeature });
-  myLayer.addTo(map)
 };
