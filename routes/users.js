@@ -69,24 +69,25 @@ module.exports = (db) => {
     }
   });
 
-  //GET USER PROFILE
-  router.get('/:id', (req, res) => {
+  //GET USER PROFILE ---- COMMENTED OUT
+  //BECAUSE IT IS NOT RESTful ENOUGH
+  // router.get('/:id', (req, res) => {
     //RENDER LIST OF ALL MAPS MADE BY A USER
     //database query for maps owned by req.params.id
-    const { id } = req.params;
-
-    db.query(`SELECT map_id FROM maps WHERE user_id = ${id}`)
-      .then(data => {
-        //possibly parse data
-        //create array of map IDs to be sent in response
-        //send array in response!
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
+    //const { id } = req.params;
+    //console.log('for some reason this is running')
+    // db.query(`SELECT map_id FROM maps WHERE user_id = ${id}`)
+    //   .then(data => {
+    //     //possibly parse data
+    //     //create array of map IDs to be sent in response
+    //     //send array in response!
+    //   })
+    //   .catch(err => {
+    //     res
+    //       .status(500)
+    //       .json({ error: err.message });
+    //   });
+  //});
 
 
   return router;

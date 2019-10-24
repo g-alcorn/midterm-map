@@ -1,5 +1,6 @@
 const express = require('express');
 const router  = express.Router();
+const cookieSession = require('cookie-session');
 
 /*************
  * IMPORTANT NOTE ON HOW TO USE URL AS VARIABLE
@@ -42,6 +43,18 @@ module.exports = (db) => {
 
   //SHOW LIST OF ALL MAPS
   router.get('/maps', (req, res) => {
+    const queryString = 'SELECT * FROM maps';
+    console.log('database query should happen here!');
+    db.query(queryString)
+      .then(results => {
+        res
+          .json({ results })
+          .status(200);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
 
   });
 
@@ -50,6 +63,17 @@ module.exports = (db) => {
     //DO DATABASE QUERY FOR THE MAP ID
     //GET THE URL FOR THE GEOJSON DATA
     //SEND THAT URL BACK IN RESPONSE TO APP.JS
+    const { id, map_id } = req.params;
+    console.log('selecting ' + id + ' ' + map_id);
+    const queryString = `SELECT maps.location FROM maps WHERE ${map_id} = maps.id`;
+    db.query(queryString)
+      .then(results => {
+        console.log(results);
+        res.json({ rows: results.rows });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   });
 
 

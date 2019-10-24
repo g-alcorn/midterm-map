@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 module.exports.registration = (user, password, db) => {
   console.log('checking current users')
   if (!user || !password) {
