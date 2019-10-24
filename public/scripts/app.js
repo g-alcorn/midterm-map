@@ -2,8 +2,10 @@ $(document).ready(function() {
   //initialize map object as global variable
   const map = new L.Map('mapid').setView([45.5, -73.58], 13);
   const layerGroup = L.layerGroup().addTo(map);
+  const tempLayer = L.layerGroup().addTo(map);
   //INITIALIZE
   initMap(map);
+
 
   //EVENT LISTENERS
   //TOGGLE LOGIN BOX
@@ -19,6 +21,14 @@ $(document).ready(function() {
   $('#new-map').click(function() {
     $('#create-map').toggleClass('open')
     $('#new-map').toggleClass('open')
+
+    if($('#new-map').hasClass('open')){
+      map.on('click', function(event) {
+        makeNewMarker(event, tempLayer);
+      });
+    } else {
+      map.off('click');
+    }
   });
 
   //OPEN SIDEBAR MENU
@@ -138,10 +148,7 @@ $(document).ready(function() {
   });
 
   //MAP CLICK TESTING
-  // map.on('click', function(event) {
-  //   console.log('trying to load a bubble');
-  //   onMapClick(event, map);
-  // });
+
 
 });
 
@@ -158,12 +165,32 @@ const initMap = (map) => {
 
 //DEFINE POPUP CONTENT FOR EACH FEATURE WITHIN A GEOJSON
 const onEachFeature = (feature, layer) => {
-  var popup = L.popup();
+  let popup = L.popup();
   popup
     .setLatLng(feature.latlng)
     .setContent(feature.properties.content);
   layer.bindPopup(popup);
 };
+
+const onMapClick = (event, map) => {
+  let marker = L.marker(event.latlng);
+  let popup = L.popup();
+  popup
+    .setContent('HTML SNIPPET GOES HERE')
+    .openPopup();
+  marker.bindPopup(popup);
+  marker.addTo(map);
+};
+
+const makeNewMarker = (event, tempLayer) => {
+  let marker = L.marker(event.latlng);
+  let popup = L.popup();
+  popup
+    .setContent('HTML SNIPPET GOES HERE')
+    .openPopup();
+  marker.bindPopup(popup);
+  tempLayer.addLayer(marker);
+}
 
 //LOAD DATA INTO NEW MAP LAYER
 const loadData = (geoJsonUrl, map, layerGroup) => {
