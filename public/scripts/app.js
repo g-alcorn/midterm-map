@@ -262,3 +262,42 @@ const loadData = (geoJsonUrl, map, layerGroup) => {
     });
 
 };
+
+const createMapElement = (mapInfo) => {
+  const maps = mapInfo.features;
+
+  for (let element in maps) {
+    let mapProperties = maps[element].properties;
+    let mapElement =
+     `<article class="map-example">
+     <header>
+     <div>
+     <img id="map-img" src=${mapProperties.url}>
+     </div>
+     <header id="db-map-title">
+     ${mapProperties.title}
+     </header>
+     </header>
+     <p id="db-map-description">${mapProperties.description}</p>
+     </article>`;
+     return mapElement;
+  }
+};
+
+const loadMaps = (dataSource) => {
+  $.ajax({
+    url: dataSource,
+    method: 'GET'
+  })
+  .done(function(data) {
+    console.log('sup')
+    renderMaps(data)
+  })
+  .fail(function(error){
+    console.log(error);
+  })
+};
+
+const renderMaps = (newMapLink) => {
+ $('#map-container').append(createMapElement(newMapLink));
+};
