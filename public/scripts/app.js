@@ -1,7 +1,7 @@
 $(document).ready(function() {
   //initialize map object as global variable
   const map = new L.Map('mapid').setView([45.5, -73.58], 13);
-
+  const layerGroup = L.layerGroup().addTo(map);
   //INITIALIZE
   initMap(map);
 
@@ -66,7 +66,7 @@ $(document).ready(function() {
     })
       .done(function(geoJsonData) {
         const geoJsonUrl = geoJsonData.rows[0];
-        loadData(geoJsonUrl, map);
+        loadData(geoJsonUrl, map, layerGroup);
       })
       .fail(function(error) {
         console.log(error);
@@ -165,7 +165,8 @@ const onEachFeature = (feature, layer) => {
   layer.bindPopup(popup);
 };
 
-const loadData = (geoJsonUrl, map) => {
+//LOAD DATA INTO NEW MAP LAYER
+const loadData = (geoJsonUrl, map, layerGroup) => {
   //test geojson data
   const myFile = {
     "type": "FeatureCollection",
@@ -217,17 +218,15 @@ const loadData = (geoJsonUrl, map) => {
     ]
   };
   const dataSource = geoJsonUrl.location;
-  console.log(dataSource);
-
-  //'../testMap.geojson',
+  layerGroup.clearLayers();
+  //DOWNLOAD GEOJSON FILE
   $.ajax({
-    url: 'testMap.geojson',
+    url: dataSource,
     method: 'GET'
   })
     .done(function(geojsonData) {
       //myFile will be replaced with the geojsonData variable from ajax request
-      let featureGroup = L.geoJSON(myFile, { onEachFeature: onEachFeature });
-      featureGroup.addTo(map)
+      layerGroup.addLayer(L.geoJSON(geojsonData, { onEachFeature: onEachFeature }));
     })
     .fail(function(error) {
       console.log(error);
