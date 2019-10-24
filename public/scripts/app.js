@@ -35,8 +35,9 @@ $(document).ready(function() {
       const arrayOfMaps = results.results.rows;
       //generate html element with jquery
       for(const mapInstance of arrayOfMaps) {
-        let redirect = '/' + mapInstance.user_id + '/maps/' + mapInstance.id;
-        $('#view-maps').append($(`<a href="${redirect}">${mapInstance.title}</a>`));
+        // let redirect = '/' + mapInstance.user_id + '/maps/' + mapInstance.id;
+        // $('#view-maps').append($(`<a href="${redirect}">${mapInstance.title}</a>`));
+        loadMaps(mapInstance.location);
       }
     })
     .fail(function(error) {
@@ -165,6 +166,45 @@ const onEachFeature = (feature, layer) => {
   layer.bindPopup(popup);
 };
 
+const createMapElement = function(mapInfo) {
+  const maps = mapInfo.features;
+
+  for (let element in maps) {
+    let mapProperties = maps[element].properties;
+    let mapElement =
+     `<article class="map-example">
+     <header>
+     <div>
+     <img id="map-img" src=${mapProperties.url}>
+     </div>
+     <header id="db-map-title">
+     ${mapProperties.title}
+     </header>
+     </header>
+     <p id="db-map-description">${mapProperties.description}</p>
+     </article>`;
+     return mapElement;
+  }
+}
+
+const renderMaps = (newMapLink) => {
+ $('#map-container').append(createMapElement(newMapLink));
+}
+
+const loadMaps = (dataSource) => {
+  $.ajax({
+    url: dataSource,
+    method: 'GET'
+  })
+  .done(function(data) {
+    console.log('sup')
+    renderMaps(data)
+  })
+  .fail(function(error){
+    console.log(error);
+  })
+}
+
 const loadData = (geoJsonUrl, map) => {
   //test geojson data
   const myFile = {
@@ -216,14 +256,11 @@ const loadData = (geoJsonUrl, map) => {
       }
     ]
   };
-<<<<<<< HEAD
   // const dataSource = geoJsonUrl.rows[0].location;
-=======
   const dataSource = geoJsonUrl.location;
   console.log(dataSource);
 
   //'../testMap.geojson',
->>>>>>> 962f687c954de4ebb6f99417ccbf6e42a1d66a2f
   $.ajax({
     url: 'testMap.geojson',
     method: 'GET'
@@ -236,5 +273,8 @@ const loadData = (geoJsonUrl, map) => {
     .fail(function(error) {
       console.log(error);
     });
+
+
+
 
 };

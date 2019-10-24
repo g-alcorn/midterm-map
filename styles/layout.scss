@@ -94,7 +94,7 @@ body {
       height: 30px;
       color: white;
       outline: none;
-      font-family: 'Muli', sans-serif;
+      font-family: 'Roboto', sans-serif;
     }
 
     #login-password {
@@ -111,7 +111,7 @@ body {
       height: 30px;
       color: white;
       outline: none;
-      font-family: 'Muli', sans-serif;
+      font-family: 'Roboto', sans-serif;
     }
 
     #login-password:focus::placeholder {
@@ -351,14 +351,23 @@ body {
     position: fixed;
     transition: 0.5s;
     z-index: 3;
+
+    #back {
+      visibility: hidden;
+    }
   }
 
   #view-maps.toggled {
     width: 40vw;
     transition: 0.5s;
+
+    #back{
+      visibility: visible;
+    }
   }
 
   #back {
+    position: fixed;
     margin-left: 1vw;
     margin-top: 10vh;
     font-size: 5vh;
@@ -402,7 +411,7 @@ body {
       height: 30px;
       color: white;
       outline: none;
-      font-family: 'Muli', sans-serif;
+      font-family: 'Roboto', sans-serif;
     }
 
     #register-password {
@@ -419,7 +428,7 @@ body {
       height: 30px;
       color: white;
       outline: none;
-      font-family: 'Muli', sans-serif;
+      font-family: 'Roboto', sans-serif;
     }
 
     #register-password:focus::placeholder {
@@ -525,5 +534,31 @@ body {
 
   #logout:active {
     transform: scale(0.95);
+  }
+
+  #map-container {
+    margin-top: 11vh;
+    width: 30vw;
+    margin-left: 4vw;
+    padding: 1vw;
+  }
+
+  #map-img {
+    width:30vw;
+  }
+
+  #db-map-title {
+    font-family: 'Muli', sans-serif;
+    height: 7vh;
+    font-size: 5vh;
+    color: white;
+  }
+
+  #db-map-description {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 3vh;
+    margin-top: -1vh;
+    color: white;
   }
 }
