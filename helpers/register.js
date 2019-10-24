@@ -7,7 +7,10 @@ module.exports.registration = (user, password, db) => {
     return false;
   } else {
     console.log('db query')
-    db.query(`SELECT email FROM users WHERE email = ${user}`)
+    db.query(`SELECT email
+              FROM users
+              WHERE email = $1;`,
+              [`${user}`])
       .then(data => {
         if (!data.rows) {
           //tell server that user already exists
@@ -21,8 +24,8 @@ module.exports.registration = (user, password, db) => {
       .catch(err => {
         console.log('db query error! ' + err)
         //res.status(500)
-        .json({ error: err.message });
-        //return false;
+        // .json({ error: err.message });
+        return false;
       })
   }
 }
@@ -45,16 +48,12 @@ module.exports.validateForm = (username, password) => {
     return response;
 };
 
-module.exports.saveUser = (user, password, db) => {
-  const queryString = `INSERT INTO users VALUES ($1, $2)`;
-  db.query(queryString, [user, password])
-    .then(data => {
-      //respond
-      console.log('user saved to db')
-      return true;
-    })
-    .catch(err => {
-      res.status(500);
-      return false;
-    });
-};
+const saveUser = (user, password, db) => {
+  db.query(`INSERT INTO users(email, password)
+            VALUES ($1, $2)
+            RETURNING *;`,
+            [`${user}`, `${password}`])
+    .then(data => data.rows[0]);
+}
+
+// module.exports.saveUser

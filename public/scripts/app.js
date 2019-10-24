@@ -107,7 +107,8 @@ $(document).ready(function() {
         data: registrationData,
         method: 'POST'
       })
-      .done(function(INFOFROMSERVER) {
+      .done(function(data) {
+        console.log(data);
         $('#registerform').removeClass('toggled');
         $('#register-email').val('');
         $('#register-password').val('');

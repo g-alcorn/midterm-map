@@ -1,9 +1,9 @@
 -- Users table seeds here (Example)
-INSERT INTO users (name, email, password, account_created)
+INSERT INTO users (email, password)
 VALUES
-('Olivier Carignan', 'olive.carignan@gmail.com', '123', now()),
-('Griffin Alcorn', 'griffin.alcorn@gmail.com', '123', now()),
-('Lighthouse', 'labber@lighthouselabs.com', '123', now());
+('olive.carignan@gmail.com', '123'),
+('griffin.alcorn@gmail.com', '123'),
+('labber@lighthouselabs.com', '123');
 
 INSERT INTO maps (user_id, title, description, location)
 VALUES
