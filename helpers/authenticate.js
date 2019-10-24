@@ -8,7 +8,7 @@ module.exports.authorize = (user, password, db) => {
     db
       .query(`SELECT id, password FROM users WHERE name = ${user} GROUP BY id`)
       .then(results => {
-        console.log(results.rows);
+        console.log(results);
         const { id, password } = results.rows;
         passCheck(id, password);
       })
@@ -23,6 +23,6 @@ module.exports.passCheck = (password) => {
   if(!password) {
     return false;
   } else {
-    return false;
+    bcrypt.compareSync(password, );
   }
 };
