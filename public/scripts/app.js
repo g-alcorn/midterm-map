@@ -86,6 +86,11 @@ $(document).ready(function() {
   $('#login-form').on('submit', function (event) {
     event.preventDefault();
 
+    $.ajax({
+      method: 'POST',
+      data: {email: $('#login-email').val(), password: $('#login-password').val()}
+    })
+
     //RESET EMAIL AND PASSWORD TO BLANK UPON SUBMISSION AND CLOSE FORM
     //SWITCH TO LOGGED IN
     $('#login').removeClass('toggled')
@@ -103,12 +108,11 @@ $(document).ready(function() {
     //RESET EMAIL AND PASSWORD TO BLANK UPON SUBMISSION AND CLOSE FORM
     //SWITCH TO LOGGED IN
     $.ajax({
-        url: '/register',
+        method: 'POST',
         data: registrationData,
-        method: 'POST'
+        url: '/register'
       })
-      .done(function(data) {
-        console.log(data);
+      .done(function() {
         $('#registerform').removeClass('toggled');
         $('#register-email').val('');
         $('#register-password').val('');

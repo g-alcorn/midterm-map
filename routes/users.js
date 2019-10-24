@@ -62,6 +62,8 @@ module.exports = (db) => {
     console.log(formErrors);
     if (!formErrors) {
       registration(email, password, db);
+      res.status(201)
+         .json({error: null});
     } else {
       res
         .status(302)

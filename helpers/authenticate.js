@@ -8,24 +8,27 @@ module.exports.authorize = (user, password, db) => {
     db
       .query(`SELECT name, password
               FROM users
-              WHERE name = $1 AND password = $2`,
-              [`${user}`, `${password}`])
+              WHERE name = $1`,
+              [`${user}`])
       .then(results => {
         console.log(results);
-        const { user, password } = results.rows;
-        passCheck(user, password);
+        const { user, dbpassword } = results.rows;
       })
       .catch(error => {
         return false;
       });
     }
-};
+  }
 
-module.exports.passCheck = (password) => {
+module.exports.passCheck = (dbpassword, password) => {
   //bcrypt compare hashes
   if(!password) {
     return false;
   } else {
-    bcrypt.compareSync(password, );
+    if(bcrypt.compareSync(dbpassword, password)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 };
