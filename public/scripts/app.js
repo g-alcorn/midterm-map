@@ -27,9 +27,7 @@ $(document).ready(function() {
         makeNewMarker(event, tempLayer);
       });
     } else {
-      map.off('click', function() {
-
-      });
+      map.off('click');
     }
   });
 
@@ -47,8 +45,7 @@ $(document).ready(function() {
       const arrayOfMaps = results.results.rows;
       //generate html element with jquery
       for(const mapInstance of arrayOfMaps) {
-        let redirect = '/' + mapInstance.user_id + '/maps/' + mapInstance.id;
-        $('#view-maps').append($(`<a href="${redirect}">${mapInstance.title}</a>`));
+        loadMaps(mapInstance.location);
       }
     })
     .fail(function(error) {
