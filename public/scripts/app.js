@@ -64,7 +64,8 @@ $(document).ready(function() {
       method: 'GET',
       url: event.currentTarget.href
     })
-      .done(function(geoJsonUrl) {
+      .done(function(geoJsonData) {
+        const geoJsonUrl = geoJsonData.rows[0];
         loadData(geoJsonUrl, map);
       })
       .fail(function(error) {
@@ -215,9 +216,16 @@ const loadData = (geoJsonUrl, map) => {
       }
     ]
   };
+<<<<<<< HEAD
   // const dataSource = geoJsonUrl.rows[0].location;
+=======
+  const dataSource = geoJsonUrl.location;
+  console.log(dataSource);
+
+  //'../testMap.geojson',
+>>>>>>> 962f687c954de4ebb6f99417ccbf6e42a1d66a2f
   $.ajax({
-    url: '../testMap.geojson',
+    url: 'testMap.geojson',
     method: 'GET'
   })
     .done(function(geojsonData) {
