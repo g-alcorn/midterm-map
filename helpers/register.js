@@ -18,7 +18,7 @@ module.exports.registration = (user, password, db) => {
           return false;
         } else {
           console.log('user does not already exist. trying to save to db')
-          return saveUser(user, password, db);
+          saveUser(user, password, db);
         }
       })
       .catch(err => {
@@ -52,7 +52,7 @@ const saveUser = (user, password, db) => {
   db.query(`INSERT INTO users(email, password)
             VALUES ($1, $2)
             RETURNING *;`,
-            [`${user}`, `${password}`])
+            [`${user}`, `${bcrypt.hashSync(password, 10)}`])
     .then(data => data.rows[0]);
 }
 
