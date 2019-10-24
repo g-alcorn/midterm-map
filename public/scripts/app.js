@@ -215,7 +215,7 @@ const loadData = (geoJsonUrl, map) => {
       }
     ]
   };
-  const dataSource = geoJsonUrl.rows[0].location;
+  // const dataSource = geoJsonUrl.rows[0].location;
   $.ajax({
     url: '../testMap.geojson',
     method: 'GET'
