@@ -44,7 +44,6 @@ module.exports = (db) => {
   //SHOW LIST OF ALL MAPS
   router.get('/maps', (req, res) => {
     const queryString = 'SELECT * FROM maps';
-    console.log('database query should happen here!');
     db.query(queryString)
       .then(results => {
         res
@@ -68,7 +67,6 @@ module.exports = (db) => {
     const queryString = `SELECT maps.location FROM maps WHERE ${map_id} = maps.id`;
     db.query(queryString)
       .then(results => {
-        console.log(results);
         res.json({ rows: results.rows });
       })
       .catch(error => {
