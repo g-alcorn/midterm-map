@@ -48,6 +48,7 @@ module.exports = (db) => {
   //LOGOUT BUTTON PRESS
   router.post('/logout', (req, res) => {
     //delete cookies from req.session
+    req.session = null;
     //change top bar to logged out appearance
   });
 

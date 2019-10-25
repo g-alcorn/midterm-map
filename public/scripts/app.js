@@ -6,6 +6,7 @@ $(document).ready(function() {
   //INITIALIZE
   initMap(map);
 
+  let isLoggedIn = false;
 
   //EVENT LISTENERS
   //TOGGLE LOGIN BOX
@@ -94,6 +95,7 @@ $(document).ready(function() {
       url: '/login'
     })
     .done(function() {
+      isLoggedIn = true;
       $('#login').removeClass('toggled')
       $('#login-email').val('');
       $('#login-password').val('');
@@ -112,7 +114,6 @@ $(document).ready(function() {
   $('#registerform').on('submit', function (event) {
     event.preventDefault();
     registrationData = { email: $('#register-email').val(), password: $('#register-password').val() };
-
     //RESET EMAIL AND PASSWORD TO BLANK UPON SUBMISSION AND CLOSE FORM
     //SWITCH TO LOGGED IN
     $.ajax({
@@ -121,6 +122,7 @@ $(document).ready(function() {
         url: '/register'
       })
       .done(function() {
+        isLoggedIn = true;
         $('#registerform').removeClass('toggled');
         $('#register-email').val('');
         $('#register-password').val('');
@@ -134,9 +136,17 @@ $(document).ready(function() {
 
   //LOGOUT BUTTON
   $('#logout').click(function() {
-    $('#user-menu').removeClass('toggled');
-    $('.login-register').removeClass('logged-in');
-    $('#user-menu-btn').removeClass('logged-in');
+
+    $.ajax({
+      method: 'POST',
+      url: '/logout'
+    })
+    .done(function() {
+      isLoggedIn = false;
+      $('#user-menu').removeClass('toggled');
+      $('.login-register').removeClass('logged-in');
+      $('#user-menu-btn').removeClass('logged-in');
+    })
   })
 
   //CHANGE BETWEEN LOGIN AND REGISTER FORMS
@@ -146,18 +156,60 @@ $(document).ready(function() {
   });
 
 
-  //CHANGE JQUERY SELECTOR TO MATCH NEW/EDIT MAP BUTTONS
-  $('form-submit').click(function(event) {
-    event.preventDefault();
-    const datavar = 0;
-    $.ajax('/save', { data: datavar, method: 'POST' })
-    .done(function(INFOFROMSERVER) {
+  $('.save').click(function() {
+    if($('#map-name').val().length < 1 || $('#map-description').val().length < 1) {
+      console.log('please fill out the fields');
+    }
 
+    let mapData = { title: $('#map-name').val(), description: $('#map-description').val()};
+    const datavar = 0;
+    if (!isLoggedIn) {
+      console.log('please log in')
+    } else {
+    $.ajax({
+      method: 'POST',
+      data: mapData,
+      url: '/save'
+    })
+    .done(function() {
+      console.log('hello')
+      $('#map-name').val('');
+      $('#map-description').val('');
     })
     .fail(function(error) {
       console.log(error);
-    });
-  });
+    })
+  }
+  })
+
+
+  //CHANGE JQUERY SELECTOR TO MATCH NEW/EDIT MAP BUTTONS
+  // $('#create-new-map').on('submit', function(event) {
+  //   event.preventDefault();
+
+  //   if($('map-name').val().length < 1 || $('#map-description').val().length < 1) {
+  //     console.log('please fill out the fields');
+  //   }
+  //   let mapTitle = $('#map-name').val();
+  //   let mapDesc = $('#map-description').val();
+  //   console.log(mapTitle, mapDesc);
+  //   const datavar = 0;
+  //   if (!isLoggedIn) {
+  //     console.log('please log in')
+  //   } else {
+  //   $.ajax({
+  //     method: 'POST',
+  //     data: datavar,
+  //     url: '/save'
+  //   })
+  //   .done(function() {
+  //     console.log('hello')
+  //   })
+  //   .fail(function(error) {
+  //     console.log(error);
+  //   })
+  // }
+  // })
 
   //MAP CLICK TESTING
 
