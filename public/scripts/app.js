@@ -170,10 +170,10 @@ $(document).ready(function() {
   });
 
   //SAVE MARKER
-  $('#popup-save').click(function(event) {
-    event.preventDefault();
-    console.log(event.currentTarget);
+  tempLayer.on('click', function(event) {
+
   })
+
 
   //SAVE ENTIRE MAP
   $('.save').click(function() {
@@ -295,9 +295,10 @@ const makeNewMarker = (event, tempLayer) => {
     <button action="submit" method="POST" id="popup-save">save</button>
     </form>
     </html>
-    `)
+    `);
+  marker
+    .bindPopup(popup)
     .openPopup();
-  marker.bindPopup(popup);
   tempLayer.addLayer(marker);
 }
 
