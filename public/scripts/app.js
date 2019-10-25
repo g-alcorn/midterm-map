@@ -97,10 +97,10 @@ $(document).ready(function() {
       }
     }
 
-    const data = {
-      password: $('#login-password').serialize().slice(9),
-      username
-    };
+    // const data = {
+    //   password: $('#login-password').serialize().slice(9),
+    //   username
+    // };
     let loginData = {email: $('#login-email'), password: $('#login-password')}
 
     $.ajax({
@@ -169,7 +169,13 @@ $(document).ready(function() {
     $('#registerform').addClass('toggled')
   });
 
+  //SAVE MARKER
+  $('#popup-save').click(function(event) {
+    event.preventDefault();
+    console.log(event.currentTarget);
+  })
 
+  //SAVE ENTIRE MAP
   $('.save').click(function() {
     if($('#map-name').val().length < 1 || $('#map-description').val().length < 1) {
       console.log('please fill out the fields');
@@ -177,10 +183,17 @@ $(document).ready(function() {
 
     let mapData = { title: $('#map-name').val(), description: $('#map-description').val()};
 
-    if (!isLoggedIn) {
+    if (isLoggedIn) {
       console.log('please log in')
-    } else {
+    } else if (!isLoggedIn) {
       mapData.geojson = tempLayer.toGeoJSON();
+      for (const feature of mapData.geojson.features) {
+        feature.properties.title = $('#marker-title').val();
+        feature.properties.description = $('#marker-description').val();
+        feature.properties.picture = $('#marker-url').val();
+      }
+
+      console.log(mapData.geojson);
 
       $.ajax({
         method: 'POST',
@@ -266,17 +279,21 @@ const makeNewMarker = (event, tempLayer) => {
   let marker = L.marker(event.latlng);
   let popup = L.popup();
   popup
-    .setContent(`<!DOCTYPE html>
+    .setContent(`
+    <!DOCTYPE html>
     <html lang="en">
     <head>
       <title>Popup</title>
       <link rel="stylesheet" href="/styles/map-tag-layout.css" type="text/css">
     </head>
     <header>
-      <input id="title" type="text" value="title" placeholder="title">
+      <form id="popup-form">
+      <input id="marker-title" type="text" value="title" placeholder="title">
     </header>
-    <input id="description" type="text" value="description" placeholder="description">
-    <input id="url" type="url" value="url" placeholder="add a picture">
+    <input id="marker-description" type="text" value="description" placeholder="description">
+    <input id="marker-url" type="url" value="url" placeholder="add a picture">
+    <button action="submit" method="POST" id="popup-save">save</button>
+    </form>
     </html>
     `)
     .openPopup();
@@ -380,7 +397,7 @@ const loadMaps = (dataSource) => {
     method: 'GET'
   })
   .done(function(data) {
-    console.log('sup')
+    console.log('map list loaded')
     renderMaps(data)
   })
   .fail(function(error){
