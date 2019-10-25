@@ -34,9 +34,33 @@ module.exports = (db) => {
   //new: "temporary" geoJSON generated during process will be saved and entered into database
   //edit: temporary copy of geoJSON will be saved and replace old geoJSON in database entry
   router.post('/save', (req, res) => {
-    const userId = req.session.userId;
-    const newData = req.body.geojson;
-    fs.writeFile('newfile.geojson', data, (err) => {
+    let { userId, title, geojson } = req.body;
+    if (!userId) {
+      userId = 'tester';
+    }
+    if(!title) {
+      title = 'maptest'
+    }
+    if (!geojson) {
+      geojson =     {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -73.57818603515624,
+                45.5414651417455
+              ]
+            }
+          }
+        ]
+      }
+    }
+    console.log(geojson);
+    fs.writeFile(`public/${userId}${title}.geojson`, geojson, (err) => {
       if (err) throw err;
       console.log('The file has been saved!');
     });
