@@ -345,7 +345,7 @@ const createMapElement = (mapInfo) => {
     let mapProperties = maps[element].properties;
     let mapElement =
      `<article class="map-example">
-     <a href="localhost:8080/maps/${mapProperties.id}">
+     <a id="map-link" href="localhost:8080/maps/${mapProperties.id}">
      <header>
      <div>
      <img id="map-img" src=${mapProperties.url}>
