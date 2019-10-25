@@ -1,8 +1,6 @@
-const bcrypt = require('bcrypt');
-
-module.exports.registration = (user, password, db) => {
+module.exports.registration = (user, passwordHash, db) => {
   console.log('checking current users')
-  if (!user || !password) {
+  if (!user || !passwordHash) {
     //tell server fields are empty
     return false;
   } else {
@@ -18,7 +16,7 @@ module.exports.registration = (user, password, db) => {
           return false;
         } else {
           console.log('user does not already exist. trying to save to db')
-          saveUser(user, password, db);
+          saveUser(user, passwordHash, db);
         }
       })
       .catch(err => {
@@ -31,7 +29,7 @@ module.exports.registration = (user, password, db) => {
 }
 
 module.exports.validateForm = (username, password) => {
-    let response = '';
+    let response = null;
     console.log('validating form')
     if (!username) {
       response += 'Please enter email!';
@@ -48,12 +46,15 @@ module.exports.validateForm = (username, password) => {
     return response;
 };
 
-const saveUser = (user, password, db) => {
+const saveUser = (user, passwordHash, db) => {
   db.query(`INSERT INTO users(email, password)
             VALUES ($1, $2)
             RETURNING *;`,
-            [`${user}`, `${bcrypt.hashSync(password, 10)}`])
-    .then(data => data.rows[0]);
-}
-
-// module.exports.saveUser
+            [`${user}`, `${passwordHash}`])
+    .then(data => {
+      console.log(`user ${user} saved in database`);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};

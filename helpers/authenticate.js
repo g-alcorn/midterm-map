@@ -1,19 +1,19 @@
 const bcrypt = require('bcrypt');
 
-module.exports.authorize = (user, password, db) => {
-  if (!user || !password) {
+module.exports.authorize = (user, inputHash, db) => {
+  if (!user || !inputHash) {
     return false;
   } else if (user) {
     //DB query to find user ID
     db
-      .query(`SELECT name, password
+      .query(`SELECT password
               FROM users
               WHERE name = $1 AND password = $2`,
-              [`${user}`, `${password}`])
+              [`${user}`, `${inputHash}`])
       .then(results => {
         console.log(results);
-        const { user, password } = results.rows;
-        passCheck(user, password);
+        const { password } = results.rows;
+        return passCheck(inputHash, password);
       })
       .catch(error => {
         return false;
@@ -21,11 +21,7 @@ module.exports.authorize = (user, password, db) => {
     }
 };
 
-module.exports.passCheck = (password) => {
+module.exports.passCheck = (inputHash, password) => {
   //bcrypt compare hashes
-  if(!password) {
-    return false;
-  } else {
-    bcrypt.compareSync(password, );
-  }
+  return bcrypt.compareSync(inputHash, password);
 };
