@@ -1,5 +1,4 @@
 
-
 module.exports.createMap = function(db, params) {
   return db
   .query(`
