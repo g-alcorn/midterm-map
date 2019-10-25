@@ -44,7 +44,7 @@ $(document).ready(function() {
       const arrayOfMaps = results.results.rows;
       //generate html element with jquery
       for(const mapInstance of arrayOfMaps) {
-        loadMaps(mapInstance.location);
+        loadMaps(mapInstance.location, mapInstance.id);
       }
     })
     .fail(function(error) {
@@ -73,13 +73,15 @@ $(document).ready(function() {
 
 
   //USE MAP-LIST-LINK AS CLASS FOR THE LINKS
-  $('#map-link').click(function(event) {
+  $('#view-maps').on('click', '.map-list-link',function(event) {
     event.preventDefault();
+    console.log(event.currentTarget.href,'kfdhfkhsk');
     $.ajax({
       method: 'GET',
       url: event.currentTarget.href
     })
       .done(function(geoJsonData) {
+        console.log(geoJsonData)
         const geoJsonUrl = geoJsonData.rows[0];
         loadData(geoJsonUrl, map, layerGroup);
       })
@@ -329,6 +331,7 @@ const loadData = (geoJsonUrl, map, layerGroup) => {
     method: 'GET'
   })
     .done(function(geojsonData) {
+      console.log('loadData')
       //myFile will be replaced with the geojsonData variable from ajax request
       layerGroup.addLayer(L.geoJSON(geojsonData, { onEachFeature: onEachFeature }));
     })
@@ -338,14 +341,14 @@ const loadData = (geoJsonUrl, map, layerGroup) => {
 
 };
 
-const createMapElement = (mapInfo) => {
+const createMapElement = (mapInfo, id) => {
   const maps = mapInfo.features;
 
   for (let element in maps) {
     let mapProperties = maps[element].properties;
     let mapElement =
      `<article class="map-example">
-     <a id="map-link" href="localhost:8080/maps/${mapProperties.id}">
+     <a class="map-list-link" href="/maps/${id}">
      <header>
      <div>
      <img id="map-img" src=${mapProperties.url}>
@@ -361,19 +364,19 @@ const createMapElement = (mapInfo) => {
   }
 };
 
-const loadMaps = (dataSource) => {
+const loadMaps = (dataSource, id) => {
   $.ajax({
     url: dataSource,
     method: 'GET'
   })
   .done(function(data) {
-    renderMaps(data)
+    renderMaps(data, id)
   })
   .fail(function(error){
     console.log(error);
   })
 };
 
-const renderMaps = (newMapLink) => {
- $('#map-container').append(createMapElement(newMapLink));
+const renderMaps = (newMapLink, id) => {
+ $('#map-container').append(createMapElement(newMapLink, id));
 };

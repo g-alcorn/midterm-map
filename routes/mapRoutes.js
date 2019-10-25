@@ -66,24 +66,24 @@ module.exports = (db) => {
 
   });
 
-  router.get('/maps/:user_id', (req, res) => {
-    const user_id = req.params.user_id;
-    db.query(`
-    SELECT *
-    FROM maps
-    WHERE user_id = $1`,
-    [`${user_id}`])
-    .then(results => {
-      res.status(200)
-         .json({results});
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  })
+  // router.get('/maps/:user_id', (req, res) => {
+  //   const user_id = req.params.user_id;
+  //   db.query(`
+  //   SELECT *
+  //   FROM maps
+  //   WHERE user_id = $1`,
+  //   [`${user_id}`])
+  //   .then(results => {
+  //     res.status(200)
+  //        .json({results});
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   })
+  // })
 
   //SHOW SPECIFIC MAP
-  router.get('/:id/maps/:map_id', (req, res) => {
+  router.get('/maps/:map_id', (req, res) => {
     //DO DATABASE QUERY FOR THE MAP ID
     //GET THE URL FOR THE GEOJSON DATA
     //SEND THAT URL BACK IN RESPONSE TO APP.JS
@@ -92,6 +92,7 @@ module.exports = (db) => {
     const queryString = `SELECT maps.location FROM maps WHERE ${map_id} = maps.id`;
     db.query(queryString)
       .then(results => {
+        console.log('getting geojson')
         res.json({ rows: results.rows });
       })
       .catch(error => {
