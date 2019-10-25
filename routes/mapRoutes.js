@@ -1,6 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-const cookieSession = require('cookie-session');
+const fs = require('fs');
 const { createMap } = require('../helpers/createMap');
 
 /*************
@@ -35,6 +35,11 @@ module.exports = (db) => {
   //edit: temporary copy of geoJSON will be saved and replace old geoJSON in database entry
   router.post('/save', (req, res) => {
     const userId = req.session.userId;
+    const newData = req.body.geojson;
+    fs.writeFile('newfile.geojson', data, (err) => {
+      if (err) throw err;
+      console.log('The file has been saved!');
+    });
     createMap(db, {...req.body})
     .then(map => {
       res.send(map)
