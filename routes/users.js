@@ -7,22 +7,25 @@
 
 const express = require('express');
 const router  = express.Router();
+const bcrypt = require('bcrypt');
 const { authorize } = require('../helpers/authenticate');
-const { registration, validateForm, saveUser } = require('../helpers/register');
+const { registration, validateForm } = require('../helpers/register');
 
 module.exports = (db) => {
   //LOGIN BUTTON PRESS - AUTHENTICATE
   router.post('/login', (req, res) => {
     console.log("login button pressed");
-    console.log(registration);
     //CALL AUTHENTICATION FUNCTION FROM HELPER FILE
-    const { username, password } = req.body;
-    console.log(username, password);
-    const loggedIn = authorize(username, password, db);
+    //const { username, login-password } = req.body;
+    const { password, username } = req.body;
+    const inputHash = bcrypt.hashSync(password, 10);
+    const loggedIn = authorize(username, inputHash, db);
+    console.log(loggedIn);
     //IF AUTHENTICATED
     //set req.session to include the user id!!!!!!!!!
     //DATABASE QUERY FOR MAP IDs OWNED BY USER
     if (loggedIn) {
+      return true;
       db.query(`SELECT maps.id, maps.name FROM maps JOIN users ON maps.user_id = users.id WHERE maps.user_id = ${serializedUser};`)
         .then(data => {
           //response should include list of map_IDs for user who logged in
@@ -39,8 +42,8 @@ module.exports = (db) => {
         });
     } else if (!loggedIn) {
       res
-        .status(302)
-        .json({ error: err.message });
+        .status(500)
+        .json({ error: error.message });
     }
 
   });
@@ -53,18 +56,19 @@ module.exports = (db) => {
 
   //REGISTER BUTTON PRESS - AUTHENTICATE
   router.post('/register', (req, res) => {
-    console.log(req.body);
     const { email, password } = req.body;
+    const passwordHash = bcrypt.hashSync(password, 10);
     console.log("register button pressed");
 
+
     //formErrors will be FALSE if fields are valid
-    const formErrors = validateForm(email, password);
+    const formErrors = validateForm(email, passwordHash);
     console.log(formErrors);
     if (!formErrors) {
-      registration(email, password, db);
+      registration(email, passwordHash, db);
     } else {
       res
-        .status(302)
+        .status(500)
         .json({ error: err.message});
     }
   });
