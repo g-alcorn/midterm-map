@@ -32,7 +32,8 @@ module.exports = (db) => {
           //response should include SEPARATE list of map_IDs for all users
           const mapsList = data.rows;
           console.log(mapsList);
-          res.json({ mapsList });
+          res.status(201)
+             .json({ mapsList });
         })
         .catch(err => {
           //CREATE ERROR CODE
@@ -51,6 +52,7 @@ module.exports = (db) => {
   //LOGOUT BUTTON PRESS
   router.post('/logout', (req, res) => {
     //delete cookies from req.session
+    req.session = null;
     //change top bar to logged out appearance
   });
 

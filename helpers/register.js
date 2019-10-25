@@ -5,7 +5,7 @@ module.exports.registration = (user, passwordHash, db) => {
     return false;
   } else {
     console.log('db query')
-    db.query(`SELECT email
+    return db.query(`SELECT email
               FROM users
               WHERE email = $1;`,
               [`${user}`])

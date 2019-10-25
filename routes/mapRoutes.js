@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const cookieSession = require('cookie-session');
+const { createMap } = require('../helpers/createMap');
 
 /*************
  * IMPORTANT NOTE ON HOW TO USE URL AS VARIABLE
@@ -12,34 +13,42 @@ const cookieSession = require('cookie-session');
 //ROUTES THAT WILL CREATE, EDIT, SAVE MAPS
 module.exports = (db) => {
   //NEW MAP - OPEN EDITOR WITH BLANK TEMPLATE
-  router.get('/maps/create', (req, res) => {
-    //call function in separate helper file
-    //use same functions as edit map but starting from blank
-  });
+  // router.get('/maps/create', (req, res) => {
+  //   //call function in separate helper file
+  //   //use same functions as edit map but starting from blank
+  // });
 
   //EDIT MAP
-  router.get('/:id/maps/:map_id/edit', (req, res) => {
-    const { id, map_id } = req.params;
+  // router.get('/:id/maps/:map_id/edit', (req, res) => {
+  //   const { id, map_id } = req.params;
 
-    //make PG query for the geojson file associated with map_id
-    //search geojson file for similar points
-    //use trim statement on lat and long to reduce decimal places and get "similar" coords
-    //if found, use edit helper function
-    //else if not found, use create helper function
-  });
+  //   //make PG query for the geojson file associated with map_id
+  //   //search geojson file for similar points
+  //   //use trim statement on lat and long to reduce decimal places and get "similar" coords
+  //   //if found, use edit helper function
+  //   //else if not found, use create helper function
+  // });
 
 
   //SAVE MAP
   //new: "temporary" geoJSON generated during process will be saved and entered into database
   //edit: temporary copy of geoJSON will be saved and replace old geoJSON in database entry
   router.post('/save', (req, res) => {
-
-  });
+    const userId = req.session.userId;
+    createMap(db, {...req.body})
+    .then(map => {
+      res.send(map)
+    })
+    .catch(error => {
+      console.log(error)
+      res.send(error);
+    })
+    });
 
   //SHOW LIST OF MAPS BY USER
-  router.get('/:id/maps', (req, res) => {
+  // router.get('/:id/maps', (req, res) => {
 
-  });
+  // });
 
   //SHOW LIST OF ALL MAPS
   router.get('/maps', (req, res) => {

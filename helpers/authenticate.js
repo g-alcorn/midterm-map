@@ -19,7 +19,7 @@ module.exports.authorize = (user, inputHash, db) => {
         return false;
       });
     }
-};
+  }
 
 module.exports.passCheck = (inputHash, password) => {
   //bcrypt compare hashes
