@@ -28,7 +28,8 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieSession({
   name: 'session',
-  keys: ['userId']
+  keys: ['userId'],
+  httpOnly: false
 }));
 app.use("/styles", sass({
   src: __dirname + "/styles",

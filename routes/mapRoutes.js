@@ -66,6 +66,22 @@ module.exports = (db) => {
 
   });
 
+  router.get('/maps/:user_id', (req, res) => {
+    const user_id = req.params.user_id;
+    db.query(`
+    SELECT *
+    FROM maps
+    WHERE user_id = $1`,
+    [`${user_id}`])
+    .then(results => {
+      res.status(200)
+         .json({results});
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  })
+
   //SHOW SPECIFIC MAP
   router.get('/:id/maps/:map_id', (req, res) => {
     //DO DATABASE QUERY FOR THE MAP ID

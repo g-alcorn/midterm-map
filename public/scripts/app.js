@@ -55,6 +55,13 @@ $(document).ready(function() {
   //
   $('#user-menu-btn').click(function() {
     $('#user-menu').toggleClass('toggled');
+    // $.ajax({
+    //   method: 'get',
+    //   url: `/maps/${document.cookie}`
+    // })
+    // .done(function() {
+    //   $('#user-menu').toggleClass('toggled');
+    // })
   })
 
   //CLOSE SIDEBAR MENU
@@ -92,7 +99,8 @@ $(document).ready(function() {
       data: loginData,
       url: '/login'
     })
-    .done(function() {
+    .done(function(response) {
+      console.log(response)
       $('#login').removeClass('toggled')
       $('#login-email').val('');
       $('#login-password').val('');
@@ -121,7 +129,8 @@ $(document).ready(function() {
         data: registrationData,
         url: '/register'
       })
-      .done(function() {
+      .done(function(response) {
+        console.log(response);
         $('#registerform').removeClass('toggled');
         $('#register-email').val('');
         $('#register-password').val('');
@@ -159,7 +168,7 @@ $(document).ready(function() {
       console.log('please fill out the fields');
     }
 
-    let mapData = { title: $('#map-name').val(),url: $('#url'), description: $('#map-description').val()};
+    let mapData = { title: $('#map-name').val(),url: $('#url'), description: $('#map-description').val(), user_id: document.cookie};
     const datavar = 0;
     if (!isLoggedIn) {
       console.log('please log in')

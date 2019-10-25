@@ -33,10 +33,12 @@ module.exports = (db) => {
     user.password = bcrypt.hashSync(user.password, 12);
     addUser(user)
     .then(user => {
+      console.log(user.id + 'jdldsfjlsjf')
       if (!user) {
         res.send({error: "error"});
       }
       req.session.userId = user.id;
+      console.log('logged in');
       res.send("logged in");
     })
     .catch(e => res.send(e));
@@ -69,7 +71,7 @@ module.exports = (db) => {
     const {email, password} = req.body;
     login(email, password)
       .then(user => {
-        console.log(user)
+        console.log(user + 'backend')
         if (user === null) {
           res.json(null);
           return;
@@ -78,7 +80,9 @@ module.exports = (db) => {
         res.json({user: {email: user.email, id: user.id}})
            .status(200);
       })
-      .catch(res.sendStatus(403));
+      .catch(response => {
+        console.log(response);
+      });
   });
 
   //LOGOUT BUTTON PRESS

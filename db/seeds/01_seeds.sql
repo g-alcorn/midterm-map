@@ -1,7 +1,7 @@
 -- Users table seeds here (Example)
 INSERT INTO users (email, password)
 VALUES
-('olive.carignan@gmail.com', '123'),
+('olive.carignan@gmail.com', '$2b$12$yM9XiTNFJ3n602B5zcyAJuEtJlSvmUAtZAs81d0M9uSe8tYXukvdu'),
 ('griffin.alcorn@gmail.com', '123'),
 ('labber@lighthouselabs.com', '123');
 
