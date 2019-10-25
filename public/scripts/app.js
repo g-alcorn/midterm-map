@@ -85,7 +85,33 @@ $(document).ready(function() {
   //LOGIN FORM
   $('#login-form').on('submit', function (event) {
     event.preventDefault();
+    const raw = $('#login-email').serialize();
+    const username = '';
+    for (let i = 0; i < raw.length; i++) {
+      if (raw[i] === '%') {
+        username.concat('@');
+        i += 2;
+      } else {
+        username.concat(raw[i]);
+      }
+    }
 
+    const data = {
+      password: $('#login-password').serialize().slice(9),
+      username
+    };
+
+    $.ajax({
+      method: 'POST',
+      url: '/login',
+      data
+    })
+      .done(function(loggedInStatus) {
+        console.log(loggedInStatus);
+      })
+      .fail(function(error) {
+        console.log(error);
+      });
     //RESET EMAIL AND PASSWORD TO BLANK UPON SUBMISSION AND CLOSE FORM
     //SWITCH TO LOGGED IN
     $('#login').removeClass('toggled')
@@ -186,7 +212,19 @@ const makeNewMarker = (event, tempLayer) => {
   let marker = L.marker(event.latlng);
   let popup = L.popup();
   popup
-    .setContent('HTML SNIPPET GOES HERE')
+    .setContent(`<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <title>Popup</title>
+      <link rel="stylesheet" href="/styles/map-tag-layout.css" type="text/css">
+    </head>
+    <header>
+      <input id="title" type="text" value="title" placeholder="title">
+    </header>
+    <input id="description" type="text" value="description" placeholder="description">
+    <input id="url" type="url" value="url" placeholder="add a picture">
+    </html>
+    `)
     .openPopup();
   marker.bindPopup(popup);
   tempLayer.addLayer(marker);
