@@ -73,7 +73,7 @@ $(document).ready(function() {
 
 
   //USE MAP-LIST-LINK AS CLASS FOR THE LINKS
-  $('.map-list-link').click(function(event) {
+  $('#map-link').click(function(event) {
     event.preventDefault();
     $.ajax({
       method: 'GET',
@@ -367,7 +367,6 @@ const loadMaps = (dataSource) => {
     method: 'GET'
   })
   .done(function(data) {
-    console.log('sup')
     renderMaps(data)
   })
   .fail(function(error){

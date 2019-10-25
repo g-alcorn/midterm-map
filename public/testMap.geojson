@@ -3,7 +3,8 @@
   "features": [
     {
       "type": "Feature",
-      "properties": {"title": "My map",
+      "properties": {"id": "3",
+                    "title": "My map",
                     "description": "My map description",
                     "url": "https://c8.alamy.com/comp/EPF1YW/nun-with-handgun-isolated-on-white-EPF1YW.jpg"},
       "geometry": {
