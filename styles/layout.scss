@@ -200,7 +200,7 @@ body {
   }
 
   #create-map.open{
-    height: 80vh;
+    height: 85vh;
     box-shadow: 9px 14px 15px 0px rgba(0,0,0,0.75);
   }
 
@@ -237,6 +237,31 @@ body {
     outline: none;
     line-height: 6vh;
     padding-left: 1vw;
+  }
+
+  #url {
+    margin-top: 4vh;
+    margin-left: 1vw;
+    width: 37vw;
+    background-color: white;
+    border: black, 1px;
+    resize: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: black;
+    font-size: 3vh;
+    height: 7vh;
+    outline: none;
+    line-height: 6vh;
+    padding-left: 1vw;
+  }
+
+  #url::placeholder {
+    opacity: 1;
+  }
+
+  #url:focus::placeholder {
+    visibility: hidden;
   }
 
   #map-name::placeholder{

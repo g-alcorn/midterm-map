@@ -6,8 +6,6 @@ $(document).ready(function() {
   //INITIALIZE
   initMap(map);
 
-  let isLoggedIn = false;
-
   //EVENT LISTENERS
   //TOGGLE LOGIN BOX
   $('.login-register').click(function() {
@@ -87,7 +85,7 @@ $(document).ready(function() {
   $('#login-form').on('submit', function (event) {
     event.preventDefault();
 
-    let loginData = {email: $('#login-email'), password: $('#login-password')}
+    let loginData = {email: $('#login-email').val(), password: $('#login-password').val()}
 
     $.ajax({
       method: 'POST',
@@ -95,7 +93,6 @@ $(document).ready(function() {
       url: '/login'
     })
     .done(function() {
-      isLoggedIn = true;
       $('#login').removeClass('toggled')
       $('#login-email').val('');
       $('#login-password').val('');
@@ -116,13 +113,15 @@ $(document).ready(function() {
     registrationData = { email: $('#register-email').val(), password: $('#register-password').val() };
     //RESET EMAIL AND PASSWORD TO BLANK UPON SUBMISSION AND CLOSE FORM
     //SWITCH TO LOGGED IN
+    if (registrationData.email === '' || registrationData.password === '' ) {
+      console.log('worng');
+    }
     $.ajax({
         method: 'POST',
         data: registrationData,
         url: '/register'
       })
       .done(function() {
-        isLoggedIn = true;
         $('#registerform').removeClass('toggled');
         $('#register-email').val('');
         $('#register-password').val('');
@@ -142,7 +141,6 @@ $(document).ready(function() {
       url: '/logout'
     })
     .done(function() {
-      isLoggedIn = false;
       $('#user-menu').removeClass('toggled');
       $('.login-register').removeClass('logged-in');
       $('#user-menu-btn').removeClass('logged-in');
@@ -161,7 +159,7 @@ $(document).ready(function() {
       console.log('please fill out the fields');
     }
 
-    let mapData = { title: $('#map-name').val(), description: $('#map-description').val()};
+    let mapData = { title: $('#map-name').val(),url: $('#url'), description: $('#map-description').val()};
     const datavar = 0;
     if (!isLoggedIn) {
       console.log('please log in')
@@ -180,6 +178,12 @@ $(document).ready(function() {
       console.log(error);
     })
   }
+  })
+
+  $('.cancel').click(function() {
+    $('#map-name').val('');
+    $('#map-description').val('');
+    tempLayer.clearLayers();
   })
 
 
@@ -332,6 +336,7 @@ const createMapElement = (mapInfo) => {
     let mapProperties = maps[element].properties;
     let mapElement =
      `<article class="map-example">
+     <a href="localhost:8080/maps/${mapProperties.id}">
      <header>
      <div>
      <img id="map-img" src=${mapProperties.url}>
@@ -341,6 +346,7 @@ const createMapElement = (mapInfo) => {
      </header>
      </header>
      <p id="db-map-description">${mapProperties.description}</p>
+     </a>
      </article>`;
      return mapElement;
   }

@@ -7,69 +7,86 @@
 
 const express = require('express');
 const router  = express.Router();
-const { authorize } = require('../helpers/authenticate');
-const { registration, validateForm, saveUser } = require('../helpers/register');
+// const { getUserWithEmail } = require('../helpers/authenticate');
+// const { addUser } = require('../helpers/register');
+const bcrypt = require('bcrypt');
 
 module.exports = (db) => {
+
+  const addUser = (user) => {
+    return db
+      .query(
+        `
+    INSERT INTO users (email, password)
+    VALUES
+    ($1, $2)
+    RETURNING *;
+    `,
+        [`${user.email}`, `${user.password}`]
+      )
+      .then(res => res.rows[0]);
+  }
+
+
+  router.post('/register', (req, res) => {
+    const user = req.body;
+    user.password = bcrypt.hashSync(user.password, 12);
+    addUser(user)
+    .then(user => {
+      if (!user) {
+        res.send({error: "error"});
+      }
+      req.session.userId = user.id;
+      res.send("logged in");
+    })
+    .catch(e => res.send(e));
+  });
+
+  const getUserWithEmail = function(email) {
+    return db.query(
+        `
+    SELECT *
+    FROM users
+    WHERE email = $1;
+    `, [`${email}`])
+      .then(res => res.rows[0]);
+  };
+
+
+
+  const login =  function(email, password) {
+    return getUserWithEmail(email)
+    .then(user => {
+      if (bcrypt.compareSync(password, user.password)) {
+        console.log(user);
+        return true;
+      }
+      return null;
+    });
+  }
   //LOGIN BUTTON PRESS - AUTHENTICATE
   router.post('/login', (req, res) => {
-    console.log("login button pressed");
-    console.log(req.body);
-    //CALL AUTHENTICATION FUNCTION FROM HELPER FILE
-    const { username, password } = req.body;
-    const loggedIn = authorize(username, password, db);
-    //IF AUTHENTICATED
-    //set req.session to include the user id!!!!!!!!!
-    //DATABASE QUERY FOR MAP IDs OWNED BY USER
-    if (loggedIn) {
-      db.query(`SELECT maps.id, maps.name FROM maps JOIN users ON maps.user_id = users.id WHERE maps.user_id = ${serializedUser};`)
-        .then(data => {
-          //response should include list of map_IDs for user who logged in
-          //response should include SEPARATE list of map_IDs for all users
-          const mapsList = data.rows;
-          console.log(mapsList);
-          res.status(201)
-             .json({ mapsList });
-        })
-        .catch(err => {
-          //CREATE ERROR CODE
-          res
-            .status(500)
-            .json({ error: err.message });
-        });
-    } else if (!loggedIn) {
-      res
-        .status(302)
-        .json({ error: err.message });
-    }
-
+    const {email, password} = req.body;
+    login(email, password)
+      .then(user => {
+        console.log(user)
+        if (user === null) {
+          res.json(null);
+          return;
+        }
+        req.session.userId = user.id;
+        res.json({user: {email: user.email, id: user.id}})
+           .status(200);
+      })
+      .catch(res.sendStatus(403));
   });
 
   //LOGOUT BUTTON PRESS
   router.post('/logout', (req, res) => {
     //delete cookies from req.session
     req.session = null;
+    res.send({});
     //change top bar to logged out appearance
-  });
-
-  //REGISTER BUTTON PRESS - AUTHENTICATE
-  router.post('/register', (req, res) => {
-    console.log(req.body);
-    const { email, password } = req.body;
-    console.log("register button pressed");
-
-    //formErrors will be FALSE if fields are valid
-    const formErrors = validateForm(email, password);
-    console.log(formErrors);
-    if (!formErrors) {
-      registration(email, password, db);
-      res.status(201)
-         .json({error: null});
-    } else {
-      res
-        .status(302)
-        .json({ error: err.message});
-    }
   });
 
   //GET USER PROFILE ---- COMMENTED OUT
