@@ -176,25 +176,27 @@ $(document).ready(function() {
     }
 
     let mapData = { title: $('#map-name').val(), description: $('#map-description').val()};
-    const datavar = 0;
+
     if (!isLoggedIn) {
       console.log('please log in')
     } else {
-    $.ajax({
-      method: 'POST',
-      data: mapData,
-      url: '/save'
-    })
-    .done(function() {
-      console.log('hello')
-      $('#map-name').val('');
-      $('#map-description').val('');
-    })
-    .fail(function(error) {
-      console.log(error);
-    })
-  }
-  })
+      mapData.geojson = tempLayer.toGeoJSON();
+
+      $.ajax({
+        method: 'POST',
+        data: mapData,
+        url: '/save'
+      })
+      .done(function() {
+        console.log('hello')
+        $('#map-name').val('');
+        $('#map-description').val('');
+      })
+      .fail(function(error) {
+        console.log(error);
+      })
+    }
+  });
 
 
   //CHANGE JQUERY SELECTOR TO MATCH NEW/EDIT MAP BUTTONS
